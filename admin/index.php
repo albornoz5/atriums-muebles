@@ -2,7 +2,7 @@
 session_start();
 define('ADMIN_PASS', 'atriums2024');
 define('DATA_DIR', __DIR__ . '/../data/');
-define('IMG_DIR',  __DIR__ . '/../assets/img/productos/');
+define('IMG_DIR',  DATA_DIR . 'img/');
 define('HERO_DIR', __DIR__ . '/../assets/img/');
 
 /* ── AJAX ── */

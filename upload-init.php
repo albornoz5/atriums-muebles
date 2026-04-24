@@ -17,7 +17,7 @@ if ($_POST['pass'] ?? '' !== 'atriums2024') {
 
 $destino = $_POST['destino'] === 'hero'
     ? __DIR__ . '/assets/img/'
-    : __DIR__ . '/assets/img/productos/';
+    : __DIR__ . '/data/img/';
 
 $ok = []; $err = [];
 foreach ($_FILES['files']['name'] as $i => $name) {
