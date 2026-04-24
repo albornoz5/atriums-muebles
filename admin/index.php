@@ -303,7 +303,7 @@ select.filter{padding:9px 14px;border:1.5px solid #e0d8cf;border-radius:8px;font
 ?>
 <div class="product-row" data-cat="<?= htmlspecialchars($p['categoria']??'') ?>" data-id="<?= $p['id'] ?>">
   <?php if ($img): ?>
-    <img class="product-thumb" src="/assets/img/productos/<?= htmlspecialchars($img) ?>" alt="">
+    <img class="product-thumb" src="/<?= htmlspecialchars($img) ?>" alt="">
   <?php else: ?>
     <div class="product-thumb-empty">·</div>
   <?php endif; ?>
@@ -314,7 +314,7 @@ select.filter{padding:9px 14px;border:1.5px solid #e0d8cf;border-radius:8px;font
       <?php if($destacado): ?><span class="badge-destacado">Destacado</span><?php endif; ?>
     </div>
     <div class="product-meta">
-      $<?= number_format($p['precio']??0,0,',','.') ?> · <span class="cat"><?= htmlspecialchars($p['categoria']??'') ?></span>
+      $<?= number_format(floatval(preg_replace('/[^0-9]/','',strval($p['precio']??'0'))),0,',','.') ?> · <span class="cat"><?= htmlspecialchars($p['categoria']??'') ?></span>
     </div>
   </div>
   <button class="btn-edit" onclick="abrirEditar(<?= $p['id'] ?>)">Editar</button>
@@ -551,7 +551,7 @@ function renderImgGrid() {
   editImagenes.forEach((img, i) => {
     const d = document.createElement('div');
     d.className = 'img-thumb' + (i===0?' principal':'');
-    d.innerHTML = `<img src="/assets/img/productos/${img}" alt=""><button class="img-remove" onclick="quitarImg('${img}', ${id})">×</button>${i===0?'<div class="img-label">Principal</div>':''}`;
+    d.innerHTML = `<img src="/${img}" alt=""><button class="img-remove" onclick="quitarImg('${img}', ${id})">×</button>${i===0?'<div class="img-label">Principal</div>':''}`;
     grid.appendChild(d);
   });
   const add = document.createElement('div');
