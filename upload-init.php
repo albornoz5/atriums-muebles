@@ -1,5 +1,5 @@
 <?php
-if ($_POST['pass'] ?? '' !== 'atriums2024') {
+if (($_POST['pass'] ?? '') !== 'atriums2024') {
     if (isset($_POST['pass'])) { echo '<p style="color:red">Contraseña incorrecta</p>'; }
     ?>
     <form method="post" enctype="multipart/form-data">
