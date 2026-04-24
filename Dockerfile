@@ -1,6 +1,8 @@
 FROM php:8.2-apache
 
-RUN a2enmod rewrite
+RUN a2enmod rewrite && \
+    sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf && \
+    echo "upload_max_filesize=256M\npost_max_size=256M\nmemory_limit=256M\nmax_execution_time=300" > /usr/local/etc/php/conf.d/uploads.ini
 
 COPY . /var/www/html/
 
