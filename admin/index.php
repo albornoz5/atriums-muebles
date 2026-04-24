@@ -1,870 +1,665 @@
 <?php
 session_start();
-
 define('ADMIN_PASS', 'atriums2024');
-define('DATA_DIR',   realpath(__DIR__ . '/../data') . '/');
-define('IMG_DIR',    realpath(__DIR__ . '/../assets/img/productos') . '/');
-define('HERO_DIR',   realpath(__DIR__ . '/../assets/img') . '/');
+define('DATA_DIR', __DIR__ . '/../data/');
+define('IMG_DIR',  __DIR__ . '/../assets/img/productos/');
+define('HERO_DIR', __DIR__ . '/../assets/img/');
 
-/* ═══════════════════════════════════════════════════════════════
-   AJAX HANDLERS
-═══════════════════════════════════════════════════════════════ */
+/* ── AJAX ── */
 if (isset($_GET['ajax'])) {
     header('Content-Type: application/json; charset=utf-8');
     if (empty($_SESSION['admin'])) { echo json_encode(['error'=>'No autorizado']); exit; }
-
     $productos = json_decode(file_get_contents(DATA_DIR.'productos.json'), true) ?? [];
+    $save = fn() => file_put_contents(DATA_DIR.'productos.json', json_encode($productos, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
 
     switch ($_GET['ajax']) {
-
         case 'toggle':
             $id = intval($_POST['id'] ?? 0);
-            $activo = true;
             foreach ($productos as &$p) {
-                if ((int)$p['id'] === $id) {
-                    $p['activo'] = !($p['activo'] ?? true);
-                    $activo = $p['activo'];
-                    break;
-                }
+                if ((int)$p['id'] === $id) { $p['activo'] = !($p['activo'] ?? true); $activo = $p['activo']; break; }
             }
-            file_put_contents(DATA_DIR.'productos.json',
-                json_encode($productos, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
-            echo json_encode(['success'=>true, 'activo'=>$activo]);
-            break;
+            $save(); echo json_encode(['success'=>true,'activo'=>$activo??true]); break;
 
         case 'eliminar':
             $id = intval($_POST['id'] ?? 0);
-            $productos = array_values(array_filter($productos, fn($p)=>(int)$p['id'] !== $id));
-            file_put_contents(DATA_DIR.'productos.json',
-                json_encode($productos, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
-            echo json_encode(['success'=>true]);
-            break;
+            $productos = array_values(array_filter($productos, fn($p)=>(int)$p['id']!==$id));
+            $save(); echo json_encode(['success'=>true]); break;
 
         case 'upload':
-            $file    = $_FILES['imagen'] ?? null;
-            if (!$file) { echo json_encode(['error'=>'Sin archivo']); break; }
-            $ext     = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-            $allowed = ['jpg','jpeg','png','webp','gif'];
-            if (!in_array($ext, $allowed))  { echo json_encode(['error'=>'Tipo no permitido']); break; }
-            if ($file['size'] > 8*1024*1024){ echo json_encode(['error'=>'Máximo 8 MB']); break; }
+            $file = $_FILES['imagen'] ?? null;
+            if (!$file || $file['error']) { echo json_encode(['error'=>'Sin archivo']); break; }
+            $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+            if (!in_array($ext,['jpg','jpeg','png','webp'])) { echo json_encode(['error'=>'Tipo no permitido']); break; }
             $fn = 'img_'.uniqid().'.'.$ext;
-            if (!is_dir(IMG_DIR)) mkdir(IMG_DIR, 0755, true);
+            if (!is_dir(IMG_DIR)) mkdir(IMG_DIR, 0775, true);
             move_uploaded_file($file['tmp_name'], IMG_DIR.$fn);
-            echo json_encode(['success'=>true, 'url'=>'assets/img/productos/'.$fn]);
-            break;
+            echo json_encode(['success'=>true,'filename'=>$fn]); break;
 
         case 'upload_hero':
+            $slot = intval($_POST['slot'] ?? 1);
             $file = $_FILES['imagen'] ?? null;
-            if (!$file) { echo json_encode(['error'=>'Sin archivo']); break; }
-            $ext  = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-            if (!in_array($ext, ['jpg','jpeg','png','webp'])) { echo json_encode(['error'=>'Tipo no permitido']); break; }
-            $slot = max(1, min(3, intval($_POST['slot'] ?? 1)));
-            $fn   = 'hero-'.$slot.'.'.$ext;
+            if (!$file || $file['error']) { echo json_encode(['error'=>'Sin archivo']); break; }
+            $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+            if (!in_array($ext,['jpg','jpeg','png','webp'])) { echo json_encode(['error'=>'Tipo no permitido']); break; }
+            $fn = 'hero-'.$slot.'.'.$ext;
             move_uploaded_file($file['tmp_name'], HERO_DIR.$fn);
-            echo json_encode(['success'=>true, 'url'=>'assets/img/'.$fn]);
-            break;
+            $cfg = json_decode(file_get_contents(DATA_DIR.'config.json'), true) ?? [];
+            $cfg['hero']['slides'][$slot-1]['imagen'] = 'assets/img/'.$fn;
+            file_put_contents(DATA_DIR.'config.json', json_encode($cfg, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
+            echo json_encode(['success'=>true,'filename'=>$fn]); break;
 
         case 'remove_img':
-            $id   = intval($_POST['id'] ?? 0);
-            $url  = trim($_POST['url'] ?? '');
+            $id = intval($_POST['id'] ?? 0); $img = basename($_POST['img'] ?? '');
             foreach ($productos as &$p) {
-                if ((int)$p['id'] === $id) {
-                    $p['imagenes'] = array_values(array_filter(
-                        $p['imagenes'] ?? [], fn($i)=>$i !== $url));
+                if ((int)$p['id']===$id) { $p['imagenes'] = array_values(array_filter($p['imagenes']??[], fn($x)=>$x!==$img)); break; }
+            }
+            $save();
+            @unlink(IMG_DIR.$img);
+            echo json_encode(['success'=>true]); break;
+
+        case 'save_producto':
+            $id = intval($_POST['id'] ?? 0);
+            foreach ($productos as &$p) {
+                if ((int)$p['id']===$id) {
+                    $p['nombre']      = trim($_POST['nombre'] ?? '');
+                    $p['descripcion'] = trim($_POST['descripcion'] ?? '');
+                    $p['precio']      = floatval($_POST['precio'] ?? 0);
+                    $p['categoria']   = trim($_POST['categoria'] ?? '');
+                    $p['material']    = trim($_POST['material'] ?? '');
+                    $p['dimensiones'] = trim($_POST['dimensiones'] ?? '');
+                    $p['peso']        = trim($_POST['peso'] ?? '');
+                    $p['activo']      = isset($_POST['activo']);
+                    $p['destacado']   = isset($_POST['destacado']);
                     break;
                 }
             }
-            file_put_contents(DATA_DIR.'productos.json',
-                json_encode($productos, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
-            echo json_encode(['success'=>true]);
-            break;
+            $save(); echo json_encode(['success'=>true]); break;
+
+        case 'nuevo_producto':
+            $maxId = max(array_column($productos,'id') ?: [0]);
+            $productos[] = [
+                'id'          => $maxId + 1,
+                'slug'        => trim($_POST['slug'] ?? 'producto-'.($maxId+1)),
+                'nombre'      => trim($_POST['nombre'] ?? 'Nuevo producto'),
+                'descripcion' => trim($_POST['descripcion'] ?? ''),
+                'precio'      => floatval($_POST['precio'] ?? 0),
+                'categoria'   => trim($_POST['categoria'] ?? 'general'),
+                'material'    => trim($_POST['material'] ?? ''),
+                'dimensiones' => trim($_POST['dimensiones'] ?? ''),
+                'peso'        => trim($_POST['peso'] ?? ''),
+                'imagenes'    => [],
+                'activo'      => true,
+                'destacado'   => false,
+                'orden'       => $maxId + 1,
+            ];
+            $save(); echo json_encode(['success'=>true,'id'=>$maxId+1]); break;
+
+        case 'save_config':
+            $cfg = json_decode(file_get_contents(DATA_DIR.'config.json'), true) ?? [];
+            $cfg['anuncio'] = trim($_POST['anuncio'] ?? '');
+            for ($i=0;$i<3;$i++) {
+                $cfg['hero']['slides'][$i]['titulo']    = trim($_POST["titulo_$i"] ?? '');
+                $cfg['hero']['slides'][$i]['subtitulo'] = trim($_POST["subtitulo_$i"] ?? '');
+                $cfg['hero']['slides'][$i]['badge']     = trim($_POST["badge_$i"] ?? '');
+            }
+            $cfg['nosotros']['titulo'] = trim($_POST['nos_titulo'] ?? '');
+            $cfg['nosotros']['texto1'] = trim($_POST['nos_texto1'] ?? '');
+            $cfg['nosotros']['texto2'] = trim($_POST['nos_texto2'] ?? '');
+            file_put_contents(DATA_DIR.'config.json', json_encode($cfg, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
+            echo json_encode(['success'=>true]); break;
+
+        case 'get_producto':
+            $id = intval($_GET['id'] ?? 0);
+            foreach ($productos as $p) { if ((int)$p['id']===$id) { echo json_encode($p); exit; } }
+            echo json_encode(['error'=>'No encontrado']); break;
     }
     exit;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   FORM POST HANDLERS
-═══════════════════════════════════════════════════════════════ */
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $action = $_POST['action'] ?? '';
-
-    // Login
-    if ($action === 'login') {
-        if ($_POST['password'] === ADMIN_PASS) {
-            $_SESSION['admin'] = true;
-            header('Location: index.php'); exit;
-        }
-        $loginError = 'Contraseña incorrecta.';
-    }
-
-    if (!empty($_SESSION['admin'])) {
-        $productos = json_decode(file_get_contents(DATA_DIR.'productos.json'), true) ?? [];
-
-        // ── Guardar producto existente ─────────────────────────────────────
-        if ($action === 'save_producto') {
-            $id = intval($_POST['id']);
-            foreach ($productos as &$p) {
-                if ((int)$p['id'] !== $id) continue;
-                $p['nombre']        = trim($_POST['nombre']        ?? '');
-                $p['descripcion']   = trim($_POST['descripcion']   ?? '');
-                $p['precio']        = trim($_POST['precio']        ?? '');
-                $p['precio_cuotas'] = trim($_POST['precio_cuotas'] ?? '');
-                $p['precio_promo']  = trim($_POST['precio_promo']  ?? '');
-                $p['categoria']     = trim($_POST['categoria']     ?? '');
-                $p['orden']         = intval($_POST['orden']       ?? $p['orden']);
-                $p['activo']        = isset($_POST['activo']);
-                // Imágenes existentes
-                $imgs = json_decode($_POST['imagenes_json'] ?? '[]', true) ?: [];
-                // Nuevas subidas
-                if (!empty($_FILES['imagenes_nuevas']['tmp_name'][0])) {
-                    foreach ($_FILES['imagenes_nuevas']['tmp_name'] as $k => $tmp) {
-                        if (!$tmp) continue;
-                        $ext = strtolower(pathinfo($_FILES['imagenes_nuevas']['name'][$k], PATHINFO_EXTENSION));
-                        $fn  = 'img_'.uniqid().'.'.$ext;
-                        if (move_uploaded_file($tmp, IMG_DIR.$fn))
-                            $imgs[] = 'assets/img/productos/'.$fn;
-                    }
-                }
-                $p['imagenes'] = $imgs;
-                break;
-            }
-            file_put_contents(DATA_DIR.'productos.json',
-                json_encode($productos, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
-            header('Location: index.php?section=productos&ok=1'); exit;
-        }
-
-        // ── Nuevo producto ─────────────────────────────────────────────────
-        if ($action === 'nuevo_producto') {
-            $maxId    = $productos ? max(array_column($productos, 'id'))    : 0;
-            $maxOrden = $productos ? max(array_column($productos, 'orden')) : 0;
-            $imgs = [];
-            if (!empty($_FILES['imagenes_nuevas']['tmp_name'][0])) {
-                foreach ($_FILES['imagenes_nuevas']['tmp_name'] as $k => $tmp) {
-                    if (!$tmp) continue;
-                    $ext = strtolower(pathinfo($_FILES['imagenes_nuevas']['name'][$k], PATHINFO_EXTENSION));
-                    $fn  = 'img_'.uniqid().'.'.$ext;
-                    if (move_uploaded_file($tmp, IMG_DIR.$fn))
-                        $imgs[] = 'assets/img/productos/'.$fn;
-                }
-            }
-            $productos[] = [
-                'id'           => $maxId + 1,
-                'slug'         => trim($_POST['slug'] ?? ''),
-                'nombre'       => trim($_POST['nombre'] ?? ''),
-                'descripcion'  => trim($_POST['descripcion'] ?? ''),
-                'precio'       => trim($_POST['precio'] ?? ''),
-                'precio_cuotas'=> trim($_POST['precio_cuotas'] ?? ''),
-                'precio_promo' => trim($_POST['precio_promo'] ?? ''),
-                'categoria'    => trim($_POST['categoria'] ?? ''),
-                'orden'        => intval($_POST['orden'] ?? ($maxOrden + 1)),
-                'activo'       => true,
-                'imagenes'     => $imgs,
-            ];
-            file_put_contents(DATA_DIR.'productos.json',
-                json_encode($productos, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
-            header('Location: index.php?section=productos&ok=1'); exit;
-        }
-
-        // ── Guardar config inicio ──────────────────────────────────────────
-        if ($action === 'save_config') {
-            $cfg = ['hero'=>['slides'=>[]], 'nosotros'=>[]];
-            for ($i = 0; $i < 3; $i++) {
-                $cfg['hero']['slides'][] = [
-                    'badge'    => trim($_POST["s{$i}_badge"]    ?? ''),
-                    'titulo'   => trim($_POST["s{$i}_titulo"]   ?? ''),
-                    'subtitulo'=> trim($_POST["s{$i}_subtitulo"] ?? ''),
-                    'imagen'   => trim($_POST["s{$i}_imagen"]   ?? ''),
-                ];
-            }
-            $cfg['nosotros'] = [
-                'titulo' => trim($_POST['nos_titulo'] ?? ''),
-                'texto1' => trim($_POST['nos_texto1'] ?? ''),
-                'texto2' => trim($_POST['nos_texto2'] ?? ''),
-            ];
-            file_put_contents(DATA_DIR.'config.json',
-                json_encode($cfg, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
-            header('Location: index.php?section=inicio&ok=1'); exit;
-        }
-    }
+/* ── LOGIN ── */
+if (isset($_POST['password'])) {
+    if ($_POST['password'] === ADMIN_PASS) { $_SESSION['admin'] = true; }
+    else { $loginError = true; }
 }
+if (isset($_GET['logout'])) { session_destroy(); header('Location: /admin/'); exit; }
+if (empty($_SESSION['admin'])) { showLogin($loginError??false); exit; }
 
-// Logout
-if (($_GET['action'] ?? '') === 'logout') {
-    session_destroy();
-    header('Location: index.php'); exit;
-}
+/* ── DATOS ── */
+$productos = json_decode(file_get_contents(DATA_DIR.'productos.json'), true) ?? [];
+$cfg       = json_decode(file_get_contents(DATA_DIR.'config.json'), true) ?? [];
+$section   = $_GET['section'] ?? 'productos';
 
-/* ═══════════════════════════════════════════════════════════════
-   LOGIN PAGE
-═══════════════════════════════════════════════════════════════ */
-if (empty($_SESSION['admin'])) { ?>
-<!DOCTYPE html><html lang="es"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Admin – Atriums Muebles</title>
+function showLogin($error) { ?>
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin · Atriums</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,sans-serif;background:#f0ebe4;display:flex;align-items:center;justify-content:center;min-height:100vh}
-.card{background:#fff;border-radius:14px;padding:48px 40px;width:100%;max-width:380px;box-shadow:0 4px 24px rgba(0,0,0,.12)}
-h1{font-size:1.6rem;color:#1a1a1a;margin-bottom:6px}h1 span{color:#A0522D}
-.sub{color:#888;font-size:.9rem;margin-bottom:32px}
-label{display:block;font-size:.83rem;font-weight:600;color:#444;margin-bottom:6px;margin-top:18px}
-input{width:100%;padding:12px 16px;border:2px solid #ddd;border-radius:8px;font-size:1rem;outline:none;transition:.2s}
-input:focus{border-color:#A0522D}
-button{width:100%;padding:14px;background:#A0522D;color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:24px;transition:.2s}
-button:hover{background:#7d3f1f}
-.err{color:#c0392b;font-size:.85rem;margin-top:14px;text-align:center;padding:10px;background:#fdf2f2;border-radius:6px}
-</style></head><body>
+body{font-family:'Inter',sans-serif;background:#f5f0eb;display:flex;align-items:center;justify-content:center;min-height:100vh}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+.card{background:#fff;border-radius:16px;padding:48px 40px;width:100%;max-width:380px;box-shadow:0 4px 24px rgba(0,0,0,.08)}
+.logo{text-align:center;margin-bottom:32px}
+.logo h1{font-size:22px;font-weight:700;color:#1a1a1a;letter-spacing:-0.5px}
+.logo p{color:#888;font-size:13px;margin-top:4px}
+label{display:block;font-size:13px;font-weight:500;color:#555;margin-bottom:6px}
+input[type=password]{width:100%;padding:12px 14px;border:1.5px solid #e0d8cf;border-radius:10px;font-size:15px;outline:none;transition:.2s}
+input[type=password]:focus{border-color:#8B5A2B}
+.btn{width:100%;margin-top:20px;padding:13px;background:#8B5A2B;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:.2s}
+.btn:hover{background:#7a4e25}
+.error{background:#fff1f0;color:#c0392b;border-radius:8px;padding:10px 14px;font-size:13px;margin-top:12px;text-align:center}
+</style></head>
+<body>
 <div class="card">
-  <h1><span>Atriums</span> Admin</h1>
-  <p class="sub">Panel de administración del sitio</p>
+  <div class="logo"><h1>Panel Admin</h1><p>Atriums Muebles</p></div>
   <form method="post">
-    <input type="hidden" name="action" value="login">
     <label>Contraseña</label>
-    <input type="password" name="password" autofocus required placeholder="••••••••">
-    <?php if (!empty($loginError)) echo "<p class='err'>$loginError</p>"; ?>
-    <button type="submit">Ingresar</button>
+    <input type="password" name="password" placeholder="••••••••" autofocus>
+    <button class="btn">Ingresar</button>
+    <?php if($error): ?><div class="error">Contraseña incorrecta</div><?php endif; ?>
   </form>
 </div>
 </body></html>
-<?php exit; }
+<?php }
 
-/* ═══════════════════════════════════════════════════════════════
-   CARGAR DATOS
-═══════════════════════════════════════════════════════════════ */
-$productos = json_decode(file_get_contents(DATA_DIR.'productos.json'), true) ?? [];
-usort($productos, fn($a,$b)=>($a['orden']??999)-($b['orden']??999));
-
-$cfgFile = DATA_DIR.'config.json';
-$cfg     = file_exists($cfgFile) ? json_decode(file_get_contents($cfgFile), true) : [];
-
-$heroSlides = $cfg['hero']['slides'] ?? [
-    ['badge'=>'Fábrica Propia · Stock Permanente','titulo'=>'Muebles de Algarrobo','subtitulo'=>'Diseñados y fabricados en el Chaco.','imagen'=>'assets/img/hero-1.jpg'],
-    ['badge'=>'21 Modelos','titulo'=>'Comedores que reúnen a la familia','subtitulo'=>'Mesas desde 1.20 m hasta 3 m.','imagen'=>'assets/img/hero-2.jpg'],
-    ['badge'=>'Living · Dormitorio','titulo'=>'Tu hogar con el alma del Algarrobo','subtitulo'=>'Desde bahiuts y cristaleros hasta camas.','imagen'=>'assets/img/hero-3.jpg'],
-];
-$nosotros = $cfg['nosotros'] ?? [
-    'titulo'=>'Más de 20 años fabricando muebles con alma chaqueña',
-    'texto1'=>'En Atriums Muebles fabricamos cada pieza con madera de Algarrobo seleccionada.',
-    'texto2'=>'Contamos con stock permanente en nuestros locales de Resistencia, Machagai y Corrientes.',
-];
-
-$section = $_GET['section'] ?? 'productos';
-$editId  = isset($_GET['edit']) ? intval($_GET['edit']) : null;
-$isAdd   = isset($_GET['add']);
-
-$editP = null;
-if ($editId) foreach ($productos as $p) { if ((int)$p['id']===$editId){$editP=$p;break;} }
-
-$cats = ['comedores'=>'Juegos de Comedor','sillas'=>'Sillas','mesas'=>'Mesas','living'=>'Living','dormitorio'=>'Dormitorio'];
-
-/* ═══════════════════════════════════════════════════════════════
-   HTML PANEL
-═══════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════
+   HTML PRINCIPAL
+══════════════════════════════ */
 ?>
-<!DOCTYPE html><html lang="es"><head>
+<!DOCTYPE html>
+<html lang="es">
+<head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Admin – Atriums Muebles</title>
+<title>Panel Admin · Atriums</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,sans-serif;background:#f5f2ee;color:#1a1a1a;display:flex;min-height:100vh}
+body{font-family:'Inter',sans-serif;background:#f5f0eb;color:#1a1a1a;min-height:100vh}
 
-/* ── Sidebar ── */
-.sidebar{width:220px;flex-shrink:0;background:#0d0d0d;display:flex;flex-direction:column;padding:0 0 24px}
-.sidebar-logo{padding:24px 20px 20px;border-bottom:1px solid rgba(255,255,255,.08)}
-.sidebar-logo span{color:#A0522D;font-weight:800;font-size:1.1rem;letter-spacing:.04em}
-.sidebar-logo small{display:block;color:rgba(255,255,255,.35);font-size:.7rem;margin-top:2px}
-.sidebar nav{padding:16px 12px;flex:1}
-.sidebar nav a{display:flex;align-items:center;gap:10px;padding:10px 12px;color:rgba(255,255,255,.7);text-decoration:none;border-radius:8px;font-size:.88rem;font-weight:500;margin-bottom:4px;transition:.18s}
-.sidebar nav a:hover,.sidebar nav a.active{background:rgba(160,82,45,.25);color:#fff}
-.sidebar nav a svg{flex-shrink:0;opacity:.7}
-.sidebar nav a.active svg{opacity:1}
-.sidebar-foot{padding:12px}
-.sidebar-foot a{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.4);font-size:.8rem;text-decoration:none;padding:8px 12px;border-radius:6px;transition:.18s}
-.sidebar-foot a:hover{color:#fff;background:rgba(255,255,255,.06)}
+/* ─ NAV ─ */
+.topbar{background:#fff;border-bottom:1px solid #e8e0d5;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100}
+.topbar-brand{font-size:16px;font-weight:700;color:#1a1a1a}
+.topbar-links{display:flex;gap:20px;align-items:center}
+.topbar-links a{font-size:13px;color:#888;text-decoration:none}
+.topbar-links a:hover{color:#8B5A2B}
 
-/* ── Main ── */
-.main{flex:1;overflow:auto;padding:32px}
-.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
-.topbar h1{font-size:1.3rem;font-weight:700}
-.topbar small{color:#888;font-size:.82rem;display:block;margin-top:2px}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:7px;border:none;font-size:.85rem;font-weight:600;cursor:pointer;text-decoration:none;transition:.18s}
-.btn-primary{background:#A0522D;color:#fff}.btn-primary:hover{background:#7d3f1f}
-.btn-danger{background:#e74c3c;color:#fff}.btn-danger:hover{background:#c0392b}
-.btn-ghost{background:#fff;color:#333;border:1.5px solid #ddd}.btn-ghost:hover{border-color:#A0522D;color:#A0522D}
-.btn-sm{padding:6px 13px;font-size:.78rem}
-.ok-banner{background:#d4edda;color:#155724;padding:12px 18px;border-radius:8px;font-size:.88rem;margin-bottom:20px;border:1px solid #c3e6cb}
+/* ─ TABS ─ */
+.tabs-wrap{padding:24px 32px 0}
+.tabs{display:flex;gap:8px}
+.tab{padding:10px 22px;border-radius:10px 10px 0 0;font-size:14px;font-weight:500;cursor:pointer;border:none;background:transparent;color:#888;transition:.2s}
+.tab.active{background:#fff;color:#8B5A2B;font-weight:600;box-shadow:0 -2px 8px rgba(0,0,0,.04)}
+.tab:hover:not(.active){color:#555}
 
-/* ── Table ── */
-.table-wrap{background:#fff;border-radius:12px;box-shadow:0 1px 6px rgba(0,0,0,.07);overflow:hidden}
-table{width:100%;border-collapse:collapse}
-th{text-align:left;padding:12px 16px;font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#888;background:#fafafa;border-bottom:1px solid #eee}
-td{padding:12px 16px;border-bottom:1px solid #f0f0f0;vertical-align:middle;font-size:.88rem}
-tr:last-child td{border-bottom:none}
-tr:hover td{background:#fdf9f6}
-.thumb{width:52px;height:52px;object-fit:cover;border-radius:6px;background:#f0ebe4}
-.thumb-placeholder{width:52px;height:52px;background:#f0ebe4;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:.65rem}
-.badge{display:inline-block;padding:3px 9px;border-radius:20px;font-size:.72rem;font-weight:600}
-.badge-activo{background:#d4edda;color:#155724}
-.badge-inactivo{background:#f8d7da;color:#721c24}
+/* ─ CONTENT ─ */
+.content{padding:0 32px 32px;background:#fff;margin:0 32px 32px;border-radius:0 12px 12px 12px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
 
-/* ── Toggle switch ── */
-.toggle{position:relative;display:inline-block;width:40px;height:22px}
-.toggle input{opacity:0;width:0;height:0}
-.toggle-slider{position:absolute;inset:0;background:#ccc;border-radius:22px;cursor:pointer;transition:.25s}
-.toggle-slider::before{content:'';position:absolute;width:16px;height:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.25s}
-.toggle input:checked+.toggle-slider{background:#27ae60}
-.toggle input:checked+.toggle-slider::before{transform:translateX(18px)}
+/* ─ TOOLBAR ─ */
+.toolbar{display:flex;align-items:center;gap:12px;padding:20px 0 16px;border-bottom:1px solid #f0ebe4}
+.toolbar-right{margin-left:auto;display:flex;gap:10px;align-items:center}
+.btn-primary{padding:10px 20px;background:#8B5A2B;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
+.btn-primary:hover{background:#7a4e25}
+.btn-secondary{padding:10px 20px;background:#f5f0eb;color:#555;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
+.btn-secondary:hover{background:#ece5db}
+.count-badge{font-size:13px;color:#888}
+select.filter{padding:9px 14px;border:1.5px solid #e0d8cf;border-radius:8px;font-size:13px;color:#555;background:#fff;cursor:pointer;outline:none}
 
-/* ── Forms ── */
-.form-card{background:#fff;border-radius:12px;box-shadow:0 1px 6px rgba(0,0,0,.07);padding:28px 32px;max-width:780px}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.form-group{display:flex;flex-direction:column;gap:6px}
+/* ─ PRODUCT LIST ─ */
+.product-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #f5f0eb;transition:.15s}
+.product-row:hover{background:#fdf9f5;margin:0 -20px;padding:14px 20px;border-radius:8px}
+.product-thumb{width:52px;height:52px;border-radius:8px;object-fit:cover;background:#f0ebe4;flex-shrink:0}
+.product-thumb-empty{width:52px;height:52px;border-radius:8px;background:#f0ebe4;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:20px;flex-shrink:0}
+.product-info{flex:1;min-width:0}
+.product-name{font-size:14px;font-weight:600;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.product-meta{font-size:12px;color:#888;margin-top:2px}
+.product-meta .cat{color:#8B5A2B;font-weight:500}
+.badge-inactivo{background:#fff1f0;color:#c0392b;font-size:11px;font-weight:600;padding:2px 7px;border-radius:20px;margin-left:6px}
+.badge-destacado{background:#fffbe6;color:#b8860b;font-size:11px;font-weight:600;padding:2px 7px;border-radius:20px;margin-left:6px}
+.btn-delete{background:none;border:none;color:#c0392b;font-size:13px;cursor:pointer;font-weight:500;padding:4px 8px;border-radius:6px;transition:.15s}
+.btn-delete:hover{background:#fff1f0}
+.btn-edit{background:none;border:none;color:#8B5A2B;font-size:13px;cursor:pointer;font-weight:500;padding:4px 8px;border-radius:6px;transition:.15s}
+.btn-edit:hover{background:#f5f0eb}
+
+/* ─ MODAL ─ */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:16px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;padding:32px}
+.modal h2{font-size:18px;font-weight:700;margin-bottom:24px;color:#1a1a1a}
+.modal-close{float:right;background:none;border:none;font-size:22px;cursor:pointer;color:#888;line-height:1;margin-top:-4px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.form-group{margin-bottom:14px}
 .form-group.full{grid-column:1/-1}
-.form-group label{font-size:.82rem;font-weight:600;color:#444}
-.form-group input,.form-group textarea,.form-group select{padding:10px 13px;border:2px solid #e8e0d8;border-radius:7px;font-size:.92rem;outline:none;font-family:inherit;transition:.18s;background:#fff;color:#1a1a1a}
-.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:#A0522D}
+.form-group label{display:block;font-size:12px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:10px 12px;border:1.5px solid #e0d8cf;border-radius:8px;font-size:14px;font-family:inherit;outline:none;transition:.2s;background:#fff}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:#8B5A2B}
 .form-group textarea{resize:vertical;min-height:80px}
-.form-hint{font-size:.76rem;color:#999;margin-top:2px}
-.form-actions{display:flex;gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid #f0f0f0}
-.section-sep{height:1px;background:#f0f0f0;margin:28px 0}
+.img-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.img-thumb{position:relative;width:80px;height:80px}
+.img-thumb img{width:80px;height:80px;object-fit:cover;border-radius:8px;border:2px solid #e0d8cf}
+.img-thumb.principal img{border-color:#8B5A2B}
+.img-label{position:absolute;bottom:0;left:0;right:0;background:#8B5A2B;color:#fff;font-size:10px;font-weight:700;text-align:center;border-radius:0 0 6px 6px;padding:2px}
+.img-remove{position:absolute;top:-6px;right:-6px;width:20px;height:20px;background:#c0392b;color:#fff;border:none;border-radius:50%;cursor:pointer;font-size:13px;line-height:20px;text-align:center;padding:0}
+.img-add{width:80px;height:80px;border:2px dashed #d0c8be;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#bbb;font-size:28px;transition:.2s;background:#fafafa}
+.img-add:hover{border-color:#8B5A2B;color:#8B5A2B;background:#f5f0eb}
+.checks{display:flex;gap:20px;margin-top:4px}
+.check-label{display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer}
+.check-label input[type=checkbox]{width:16px;height:16px;accent-color:#8B5A2B}
+.modal-footer{display:flex;gap:10px;margin-top:24px;justify-content:flex-end}
+.btn-cancel{padding:11px 22px;background:#f5f0eb;color:#555;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer}
+.btn-save{padding:11px 28px;background:#8B5A2B;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer}
+.btn-save:hover{background:#7a4e25}
 
-/* ── Images ── */
-.imgs-wrap{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
-.img-item{position:relative;width:90px;height:90px}
-.img-item img{width:100%;height:100%;object-fit:cover;border-radius:8px;border:2px solid #e8e0d8}
-.img-del{position:absolute;top:-6px;right:-6px;width:20px;height:20px;background:#e74c3c;color:#fff;border:none;border-radius:50%;cursor:pointer;font-size:.75rem;display:flex;align-items:center;justify-content:center;line-height:1}
-.img-del:hover{background:#c0392b}
-.upload-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border:2px dashed #ccc;border-radius:8px;cursor:pointer;color:#888;font-size:.82rem;transition:.18s;background:none}
-.upload-btn:hover{border-color:#A0522D;color:#A0522D}
-
-/* ── Hero slides editor ── */
-.slide-block{background:#fdf9f6;border:1px solid #e8e0d8;border-radius:10px;padding:20px;margin-bottom:16px}
-.slide-block h4{font-size:.85rem;font-weight:700;color:#A0522D;margin-bottom:14px}
-.hero-preview{width:100%;height:120px;object-fit:cover;border-radius:7px;margin-bottom:10px;background:#e8ddd0}
-.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
-.stat-card{background:#fff;border-radius:10px;padding:18px 20px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.stat-card .num{font-size:1.8rem;font-weight:800;color:#A0522D}
-.stat-card .lbl{font-size:.78rem;color:#888;margin-top:2px}
-
-@media(max-width:900px){
-  .sidebar{width:60px}.sidebar-logo small,.sidebar nav a span,.sidebar-foot a span{display:none}
-  .sidebar-logo{padding:20px 16px}.main{padding:20px}
-  .form-grid{grid-template-columns:1fr}.stats-grid{grid-template-columns:1fr 1fr}
-}
+/* ─ INICIO SECTION ─ */
+.section-card{background:#fdf9f5;border-radius:12px;padding:24px;margin-bottom:20px;border:1px solid #ede5d8}
+.section-card h3{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:16px}
+.hero-img-preview{width:100%;height:140px;object-fit:cover;border-radius:8px;border:2px solid #e0d8cf;margin-top:8px;display:block}
+.hero-img-empty{width:100%;height:140px;border:2px dashed #d0c8be;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:13px;margin-top:8px;cursor:pointer}
+.hero-img-btn{margin-top:8px;padding:8px 14px;background:#f5f0eb;border:none;border-radius:7px;font-size:12px;font-weight:600;color:#8B5A2B;cursor:pointer}
+.save-all{padding:12px 28px;background:#8B5A2B;color:#fff;border:none;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s}
+.save-all:hover{background:#7a4e25}
+.toast{position:fixed;bottom:24px;right:24px;background:#1a1a1a;color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;font-weight:500;z-index:9999;opacity:0;transform:translateY(8px);transition:.3s;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
 </style>
 </head>
 <body>
 
-<!-- SIDEBAR -->
-<aside class="sidebar">
-  <div class="sidebar-logo">
-    <span>ATRIUMS</span>
-    <small>Panel Admin</small>
+<div class="topbar">
+  <span class="topbar-brand">Panel Admin</span>
+  <div class="topbar-links">
+    <a href="/" target="_blank">Ver sitio web</a>
+    <a href="?logout">Cerrar sesión</a>
   </div>
-  <nav>
-    <a href="?section=productos" class="<?= $section==='productos'?'active':'' ?>">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
-      <span>Productos</span>
-    </a>
-    <a href="?section=inicio" class="<?= $section==='inicio'?'active':'' ?>">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-      <span>Inicio</span>
-    </a>
-    <a href="../index.html" target="_blank">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
-      <span>Ver sitio</span>
-    </a>
-  </nav>
-  <div class="sidebar-foot">
-    <a href="?action=logout">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5-5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
-      <span>Salir</span>
-    </a>
+</div>
+
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab <?= $section==='inicio'?'active':'' ?>" onclick="location='?section=inicio'">Inicio</button>
+    <button class="tab <?= $section==='productos'?'active':'' ?>" onclick="location='?section=productos'">Productos</button>
   </div>
-</aside>
+</div>
 
-<!-- MAIN -->
-<main class="main">
+<div class="content">
 
-<?php if (isset($_GET['ok'])): ?>
-<div class="ok-banner">✓ Cambios guardados correctamente.</div>
+<?php if ($section === 'productos'): ?>
+<!-- ══ PRODUCTOS ══ -->
+<div class="toolbar">
+  <span class="count-badge"><?= count($productos) ?> productos</span>
+  <div class="toolbar-right">
+    <select class="filter" id="filterCat" onchange="filtrar()">
+      <option value="">Todas las categorías</option>
+      <?php $cats = array_unique(array_column($productos,'categoria')); sort($cats); foreach($cats as $c): ?>
+      <option value="<?= htmlspecialchars($c) ?>"><?= htmlspecialchars(ucfirst($c)) ?></option>
+      <?php endforeach; ?>
+    </select>
+    <button class="btn-primary" onclick="abrirNuevo()">+ Nuevo producto</button>
+  </div>
+</div>
+
+<div id="listaProductos">
+<?php foreach ($productos as $p):
+  $img = ($p['imagenes'][0] ?? null);
+  $activo = $p['activo'] ?? true;
+  $destacado = $p['destacado'] ?? false;
+?>
+<div class="product-row" data-cat="<?= htmlspecialchars($p['categoria']??'') ?>" data-id="<?= $p['id'] ?>">
+  <?php if ($img): ?>
+    <img class="product-thumb" src="/assets/img/productos/<?= htmlspecialchars($img) ?>" alt="">
+  <?php else: ?>
+    <div class="product-thumb-empty">·</div>
+  <?php endif; ?>
+  <div class="product-info">
+    <div class="product-name">
+      <?= htmlspecialchars($p['nombre']) ?>
+      <?php if(!$activo): ?><span class="badge-inactivo">Inactivo</span><?php endif; ?>
+      <?php if($destacado): ?><span class="badge-destacado">Destacado</span><?php endif; ?>
+    </div>
+    <div class="product-meta">
+      $<?= number_format($p['precio']??0,0,',','.') ?> · <span class="cat"><?= htmlspecialchars($p['categoria']??'') ?></span>
+    </div>
+  </div>
+  <button class="btn-edit" onclick="abrirEditar(<?= $p['id'] ?>)">Editar</button>
+  <button class="btn-delete" onclick="eliminar(<?= $p['id'] ?>, this)">Eliminar</button>
+</div>
+<?php endforeach; ?>
+</div>
+
+<?php elseif ($section === 'inicio'):
+  $slides = $cfg['hero']['slides'] ?? [[],[],[]];
+  $anuncio = $cfg['anuncio'] ?? '';
+  $nos = $cfg['nosotros'] ?? [];
+?>
+<!-- ══ INICIO ══ -->
+<div style="padding-top:24px;display:flex;justify-content:flex-end;margin-bottom:4px">
+  <button class="save-all" onclick="guardarInicio()">Guardar todo</button>
+</div>
+
+<div class="section-card">
+  <h3>Barra de anuncios</h3>
+  <div class="form-group">
+    <label>Texto de la barra superior</label>
+    <input type="text" id="anuncio" value="<?= htmlspecialchars($anuncio) ?>" placeholder="Ej: Envíos a todo el país · Consultá hoy">
+  </div>
+</div>
+
+<?php for ($i=0;$i<3;$i++): $s=$slides[$i]??[]; ?>
+<div class="section-card">
+  <h3>Hero – Diapositiva <?= $i+1 ?></h3>
+  <div class="form-row">
+    <div class="form-group">
+      <label>Título</label>
+      <input type="text" id="titulo_<?= $i ?>" value="<?= htmlspecialchars($s['titulo']??'') ?>">
+    </div>
+    <div class="form-group">
+      <label>Badge</label>
+      <input type="text" id="badge_<?= $i ?>" value="<?= htmlspecialchars($s['badge']??'') ?>">
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Subtítulo</label>
+    <input type="text" id="subtitulo_<?= $i ?>" value="<?= htmlspecialchars($s['subtitulo']??'') ?>">
+  </div>
+  <div class="form-group">
+    <label>Imagen de fondo</label>
+    <?php if (!empty($s['imagen'])): ?>
+      <img src="/<?= htmlspecialchars($s['imagen']) ?>" class="hero-img-preview" id="hero-preview-<?= $i ?>">
+    <?php else: ?>
+      <div class="hero-img-empty" id="hero-preview-<?= $i ?>" onclick="document.getElementById('hero-file-<?= $i ?>').click()">Sin imagen · Click para subir</div>
+    <?php endif; ?>
+    <input type="file" id="hero-file-<?= $i ?>" accept="image/*" style="display:none" onchange="subirHero(<?= $i ?>)">
+    <button class="hero-img-btn" onclick="document.getElementById('hero-file-<?= $i ?>').click()">Cambiar imagen</button>
+  </div>
+</div>
+<?php endfor; ?>
+
+<div class="section-card">
+  <h3>Sección Nosotros</h3>
+  <div class="form-group">
+    <label>Título</label>
+    <input type="text" id="nos_titulo" value="<?= htmlspecialchars($nos['titulo']??'') ?>">
+  </div>
+  <div class="form-group">
+    <label>Párrafo 1</label>
+    <textarea id="nos_texto1"><?= htmlspecialchars($nos['texto1']??'') ?></textarea>
+  </div>
+  <div class="form-group">
+    <label>Párrafo 2</label>
+    <textarea id="nos_texto2"><?= htmlspecialchars($nos['texto2']??'') ?></textarea>
+  </div>
+</div>
 <?php endif; ?>
 
-<?php
-/* ════════════════════════════════════════
-   SECCIÓN: PRODUCTOS
-════════════════════════════════════════ */
-if ($section === 'productos' && !$editP && !$isAdd):
-    $total    = count($productos);
-    $activos  = count(array_filter($productos, fn($p)=>($p['activo']??true)));
-    $inactivos= $total - $activos;
-?>
+</div><!-- /content -->
 
-<div class="topbar">
-  <div>
-    <h1>Productos</h1>
-    <small><?= $total ?> productos · <?= $activos ?> visibles · <?= $inactivos ?> ocultos</small>
-  </div>
-  <a href="?section=productos&add=1" class="btn btn-primary">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-    Nuevo producto
-  </a>
-</div>
-
-<div class="stats-grid">
-  <div class="stat-card"><div class="num"><?= $total ?></div><div class="lbl">Total productos</div></div>
-  <div class="stat-card"><div class="num"><?= $activos ?></div><div class="lbl">Visibles en el sitio</div></div>
-  <div class="stat-card"><div class="num"><?= $inactivos ?></div><div class="lbl">Ocultos</div></div>
-</div>
-
-<div class="table-wrap">
-<table>
-  <thead><tr>
-    <th>Foto</th><th>Producto</th><th>Precio</th><th>Categoría</th><th>Visible</th><th>Acciones</th>
-  </tr></thead>
-  <tbody id="tabla-productos">
-  <?php foreach ($productos as $p):
-    $activo = $p['activo'] ?? true;
-    $img    = $p['imagenes'][0] ?? '';
-  ?>
-  <tr id="row-<?= $p['id'] ?>">
-    <td>
-      <?php if ($img): ?>
-        <img src="../<?= htmlspecialchars($img) ?>" class="thumb" onerror="this.style.display='none'">
-      <?php else: ?>
-        <div class="thumb-placeholder">sin foto</div>
-      <?php endif; ?>
-    </td>
-    <td>
-      <strong><?= htmlspecialchars($p['nombre']) ?></strong>
-      <div style="color:#999;font-size:.76rem;margin-top:2px">#<?= $p['id'] ?> · orden <?= $p['orden'] ?></div>
-    </td>
-    <td style="white-space:nowrap">
-      <div style="font-weight:700"><?= htmlspecialchars($p['precio']) ?></div>
-      <?php if (!empty($p['precio_promo'])): ?>
-        <div style="color:#888;font-size:.76rem"><?= htmlspecialchars($p['precio_promo']) ?> ef.</div>
-      <?php endif; ?>
-    </td>
-    <td><?= htmlspecialchars($cats[$p['categoria']] ?? $p['categoria']) ?></td>
-    <td>
-      <label class="toggle" title="<?= $activo?'Visible':'Oculto' ?>">
-        <input type="checkbox" <?= $activo?'checked':'' ?>
-               onchange="toggleActivo(<?= $p['id'] ?>, this)">
-        <span class="toggle-slider"></span>
-      </label>
-    </td>
-    <td>
-      <a href="?section=productos&edit=<?= $p['id'] ?>" class="btn btn-ghost btn-sm">Editar</a>
-      <button class="btn btn-danger btn-sm" style="margin-left:6px"
-              onclick="eliminarProducto(<?= $p['id'] ?>, '<?= addslashes(htmlspecialchars($p['nombre'])) ?>')">
-        Eliminar
-      </button>
-    </td>
-  </tr>
-  <?php endforeach; ?>
-  </tbody>
-</table>
-</div>
-
-<?php
-/* ════════════════════════════════════════
-   EDITAR PRODUCTO
-════════════════════════════════════════ */
-elseif ($section === 'productos' && $editP):
-?>
-
-<div class="topbar">
-  <div>
-    <h1>Editar producto</h1>
-    <small>#<?= $editP['id'] ?> — <?= htmlspecialchars($editP['nombre']) ?></small>
-  </div>
-  <a href="?section=productos" class="btn btn-ghost">← Volver</a>
-</div>
-
-<div class="form-card">
-<form method="post" enctype="multipart/form-data">
-  <input type="hidden" name="action" value="save_producto">
-  <input type="hidden" name="id" value="<?= $editP['id'] ?>">
-  <input type="hidden" name="imagenes_json" id="imagenes_json"
-         value="<?= htmlspecialchars(json_encode($editP['imagenes'] ?? [])) ?>">
-
-  <div class="form-grid">
-
-    <div class="form-group full">
-      <label>Nombre del producto</label>
-      <input type="text" name="nombre" value="<?= htmlspecialchars($editP['nombre']) ?>" required>
+<!-- ══ MODAL EDITAR ══ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="cerrarModal()">×</button>
+    <h2 id="modalTitle">Editar producto</h2>
+    <input type="hidden" id="editId">
+    <div class="form-group">
+      <label>Nombre</label>
+      <input type="text" id="editNombre">
     </div>
-
-    <div class="form-group full">
+    <div class="form-group">
       <label>Descripción</label>
-      <textarea name="descripcion" rows="4"><?= htmlspecialchars($editP['descripcion'] ?? '') ?></textarea>
+      <textarea id="editDescripcion"></textarea>
     </div>
-
-    <div class="form-group">
-      <label>Precio (con $)</label>
-      <input type="text" name="precio" value="<?= htmlspecialchars($editP['precio'] ?? '') ?>" placeholder="$1.500.000">
-    </div>
-
-    <div class="form-group">
-      <label>Precio promo (efectivo/transf.)</label>
-      <input type="text" name="precio_promo" value="<?= htmlspecialchars($editP['precio_promo'] ?? '') ?>" placeholder="$1.200.000">
-    </div>
-
-    <div class="form-group">
-      <label>Cuota (12 cuotas sin interés)</label>
-      <input type="text" name="precio_cuotas" value="<?= htmlspecialchars($editP['precio_cuotas'] ?? '') ?>" placeholder="$125.000">
-    </div>
-
-    <div class="form-group">
-      <label>Categoría</label>
-      <select name="categoria">
-        <?php foreach ($cats as $k=>$v): ?>
-          <option value="<?= $k ?>" <?= ($editP['categoria']===$k)?'selected':'' ?>><?= $v ?></option>
-        <?php endforeach; ?>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Orden en el catálogo</label>
-      <input type="number" name="orden" value="<?= $editP['orden'] ?? 99 ?>" min="1">
-    </div>
-
-    <div class="form-group">
-      <label>Visible en el sitio</label>
-      <label style="display:flex;align-items:center;gap:10px;margin-top:4px">
-        <input type="checkbox" name="activo" style="width:18px;height:18px" <?= ($editP['activo']??true)?'checked':'' ?>>
-        <span style="font-size:.9rem;font-weight:normal">Mostrar en el catálogo</span>
-      </label>
-    </div>
-
-    <!-- Imágenes actuales -->
-    <div class="form-group full">
-      <label>Fotos actuales</label>
-      <div class="imgs-wrap" id="imgs-wrap">
-        <?php foreach ($editP['imagenes'] ?? [] as $img): ?>
-        <div class="img-item" id="img-<?= md5($img) ?>">
-          <img src="../<?= htmlspecialchars($img) ?>" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2290%22 height=%2290%22><rect fill=%22%23f0ebe4%22 width=%2290%22 height=%2290%22/></svg>'">
-          <button type="button" class="img-del"
-                  onclick="removeImg('<?= addslashes($img) ?>', <?= $editP['id'] ?>)">✕</button>
-        </div>
-        <?php endforeach; ?>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Precio</label>
+        <input type="number" id="editPrecio">
       </div>
-      <p class="form-hint">Hacé clic en ✕ para eliminar una foto</p>
+      <div class="form-group">
+        <label>Categoría</label>
+        <select id="editCategoria">
+          <option value="comedor-quincho">Comedor / Quincho</option>
+          <option value="living">Living</option>
+          <option value="dormitorio">Dormitorio</option>
+          <option value="sillas">Sillas</option>
+          <option value="mesas">Mesas</option>
+          <option value="general">General</option>
+        </select>
+      </div>
     </div>
-
-    <!-- Subir nuevas fotos -->
-    <div class="form-group full">
-      <label>Agregar fotos</label>
-      <input type="file" name="imagenes_nuevas[]" multiple accept="image/*"
-             style="display:none" id="file-input"
-             onchange="previewNewFiles(this)">
-      <button type="button" class="upload-btn" onclick="document.getElementById('file-input').click()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/></svg>
-        Seleccionar fotos (JPG, PNG, WEBP)
-      </button>
-      <div class="imgs-wrap" id="new-imgs-wrap"></div>
-      <p class="form-hint">Podés seleccionar varias a la vez. Se agregan a las existentes.</p>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Material</label>
+        <input type="text" id="editMaterial" placeholder="Ej: Algarrobo Macizo">
+      </div>
+      <div class="form-group">
+        <label>Dimensiones</label>
+        <input type="text" id="editDimensiones" placeholder="Ej: 1,40m x 1,40m x 80">
+      </div>
     </div>
-
-  </div><!-- .form-grid -->
-
-  <div class="form-actions">
-    <button type="submit" class="btn btn-primary">Guardar cambios</button>
-    <a href="?section=productos" class="btn btn-ghost">Cancelar</a>
+    <div class="form-group" style="width:50%">
+      <label>Peso</label>
+      <input type="text" id="editPeso" placeholder="Ej: 55 kg">
+    </div>
+    <div class="form-group">
+      <label>Imágenes</label>
+      <div class="img-grid" id="imgGrid"></div>
+    </div>
+    <input type="file" id="fileInput" accept="image/*" style="display:none" multiple onchange="subirImagenes()">
+    <div class="checks">
+      <label class="check-label"><input type="checkbox" id="editDestacado"> Destacado</label>
+      <label class="check-label"><input type="checkbox" id="editActivo"> Activo</label>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="cerrarModal()">Cancelar</button>
+      <button class="btn-save" onclick="guardarProducto()">Actualizar</button>
+    </div>
   </div>
-</form>
 </div>
 
-<?php
-/* ════════════════════════════════════════
-   NUEVO PRODUCTO
-════════════════════════════════════════ */
-elseif ($section === 'productos' && $isAdd):
-    $nextOrden = $productos ? max(array_column($productos, 'orden')) + 1 : 1;
-?>
-
-<div class="topbar">
-  <div><h1>Nuevo producto</h1></div>
-  <a href="?section=productos" class="btn btn-ghost">← Volver</a>
-</div>
-
-<div class="form-card">
-<form method="post" enctype="multipart/form-data">
-  <input type="hidden" name="action" value="nuevo_producto">
-
-  <div class="form-grid">
-
-    <div class="form-group full">
-      <label>Nombre del producto *</label>
-      <input type="text" name="nombre" required placeholder="Ej: Mesa 1.60 + 6 sillas Juliana">
-    </div>
-
-    <div class="form-group full">
-      <label>Descripción</label>
-      <textarea name="descripcion" rows="4" placeholder="Descripción del producto..."></textarea>
-    </div>
-
+<!-- ══ MODAL NUEVO ══ -->
+<div class="modal-overlay" id="modalNuevo">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('modalNuevo').classList.remove('open')">×</button>
+    <h2>Nuevo producto</h2>
     <div class="form-group">
-      <label>Precio (con $)</label>
-      <input type="text" name="precio" placeholder="$1.500.000">
+      <label>Nombre</label>
+      <input type="text" id="newNombre">
     </div>
-
-    <div class="form-group">
-      <label>Precio promo (efectivo/transf.)</label>
-      <input type="text" name="precio_promo" placeholder="$1.200.000">
-    </div>
-
-    <div class="form-group">
-      <label>Cuota (12 cuotas sin interés)</label>
-      <input type="text" name="precio_cuotas" placeholder="$125.000">
-    </div>
-
-    <div class="form-group">
-      <label>Categoría</label>
-      <select name="categoria">
-        <?php foreach ($cats as $k=>$v): ?>
-          <option value="<?= $k ?>"><?= $v ?></option>
-        <?php endforeach; ?>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Orden en el catálogo</label>
-      <input type="number" name="orden" value="<?= $nextOrden ?>" min="1">
-    </div>
-
     <div class="form-group">
       <label>Slug (URL)</label>
-      <input type="text" name="slug" placeholder="mesa-160-6-juliana">
-      <span class="form-hint">Sin espacios ni tildes, usar guiones</span>
+      <input type="text" id="newSlug" placeholder="ej: mesa-cuadrada-120">
     </div>
-
-    <div class="form-group full">
-      <label>Fotos del producto</label>
-      <input type="file" name="imagenes_nuevas[]" multiple accept="image/*"
-             style="display:none" id="file-input-new" onchange="previewNewFiles(this)">
-      <button type="button" class="upload-btn" onclick="document.getElementById('file-input-new').click()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/></svg>
-        Seleccionar fotos
-      </button>
-      <div class="imgs-wrap" id="new-imgs-wrap"></div>
+    <div class="form-group">
+      <label>Descripción</label>
+      <textarea id="newDescripcion"></textarea>
     </div>
-
-  </div>
-
-  <div class="form-actions">
-    <button type="submit" class="btn btn-primary">Crear producto</button>
-    <a href="?section=productos" class="btn btn-ghost">Cancelar</a>
-  </div>
-</form>
-</div>
-
-<?php
-/* ════════════════════════════════════════
-   SECCIÓN: INICIO
-════════════════════════════════════════ */
-elseif ($section === 'inicio'):
-?>
-
-<div class="topbar">
-  <div>
-    <h1>Editar página de inicio</h1>
-    <small>Hero, sección Nosotros</small>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Precio</label>
+        <input type="number" id="newPrecio">
+      </div>
+      <div class="form-group">
+        <label>Categoría</label>
+        <select id="newCategoria">
+          <option value="comedor-quincho">Comedor / Quincho</option>
+          <option value="living">Living</option>
+          <option value="dormitorio">Dormitorio</option>
+          <option value="sillas">Sillas</option>
+          <option value="mesas">Mesas</option>
+          <option value="general">General</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="document.getElementById('modalNuevo').classList.remove('open')">Cancelar</button>
+      <button class="btn-save" onclick="crearProducto()">Crear</button>
+    </div>
   </div>
 </div>
 
-<form method="post" id="form-inicio">
-<input type="hidden" name="action" value="save_config">
+<div class="toast" id="toast"></div>
 
-<div class="form-card">
-  <h3 style="margin-bottom:20px;font-size:1rem">🖼 Hero (banner principal)</h3>
-  <p style="color:#888;font-size:.83rem;margin-bottom:20px">
-    El hero muestra 3 slides rotativos. Editá el texto de cada uno y subí las fotos de fondo.
-  </p>
-
-  <?php for ($i = 0; $i < 3; $i++):
-    $sl = $heroSlides[$i] ?? [];
-  ?>
-  <div class="slide-block">
-    <h4>Slide <?= $i+1 ?></h4>
-
-    <?php if (!empty($sl['imagen'])): ?>
-      <img src="../<?= htmlspecialchars($sl['imagen']) ?>"
-           class="hero-preview" id="hero-prev-<?= $i ?>"
-           onerror="this.style.display='none'">
-    <?php else: ?>
-      <div class="hero-preview" id="hero-prev-<?= $i ?>"
-           style="display:flex;align-items:center;justify-content:center;color:#bbb;font-size:.8rem">
-        Sin imagen — subí una foto de fondo
-      </div>
-    <?php endif; ?>
-
-    <input type="hidden" name="s<?= $i ?>_imagen" id="s<?= $i ?>_imagen"
-           value="<?= htmlspecialchars($sl['imagen'] ?? '') ?>">
-
-    <div style="margin-bottom:12px">
-      <button type="button" class="upload-btn"
-              onclick="uploadHero(<?= $i ?>)">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/></svg>
-        Cambiar foto de fondo
-      </button>
-      <input type="file" id="hero-file-<?= $i ?>" accept="image/jpeg,image/png,image/webp" style="display:none">
-    </div>
-
-    <div class="form-grid" style="margin-top:0">
-      <div class="form-group full">
-        <label>Frase badge (texto pequeño arriba del título)</label>
-        <input type="text" name="s<?= $i ?>_badge"
-               value="<?= htmlspecialchars($sl['badge'] ?? '') ?>"
-               placeholder="Ej: Fábrica Propia · Stock Permanente">
-      </div>
-      <div class="form-group full">
-        <label>Título principal</label>
-        <input type="text" name="s<?= $i ?>_titulo"
-               value="<?= htmlspecialchars($sl['titulo'] ?? '') ?>"
-               placeholder="Muebles de Algarrobo">
-        <span class="form-hint">Podés usar \n para salto de línea</span>
-      </div>
-      <div class="form-group full">
-        <label>Subtítulo</label>
-        <textarea name="s<?= $i ?>_subtitulo" rows="2"><?= htmlspecialchars($sl['subtitulo'] ?? '') ?></textarea>
-      </div>
-    </div>
-  </div>
-  <?php endfor; ?>
-
-  <div class="section-sep"></div>
-  <h3 style="margin-bottom:20px;font-size:1rem">👋 Sección "Sobre nosotros"</h3>
-
-  <div class="form-grid">
-    <div class="form-group full">
-      <label>Título</label>
-      <input type="text" name="nos_titulo"
-             value="<?= htmlspecialchars($nosotros['titulo'] ?? '') ?>">
-    </div>
-    <div class="form-group full">
-      <label>Primer párrafo</label>
-      <textarea name="nos_texto1" rows="3"><?= htmlspecialchars($nosotros['texto1'] ?? '') ?></textarea>
-    </div>
-    <div class="form-group full">
-      <label>Segundo párrafo</label>
-      <textarea name="nos_texto2" rows="3"><?= htmlspecialchars($nosotros['texto2'] ?? '') ?></textarea>
-    </div>
-  </div>
-
-  <div class="form-actions">
-    <button type="submit" class="btn btn-primary">Guardar cambios</button>
-  </div>
-</div><!-- .form-card -->
-</form>
-
-<?php endif; ?>
-
-</main><!-- .main -->
-
-<!-- ═══ JAVASCRIPT ═══ -->
 <script>
-/* Toggle activo */
-function toggleActivo(id, el) {
-  fetch('?ajax=toggle', {
-    method: 'POST',
-    body: new URLSearchParams({ id }),
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-  })
-  .then(r => r.json())
-  .then(d => {
-    if (!d.success) { el.checked = !el.checked; alert('Error al guardar'); }
+const BASE = '/admin/?ajax=';
+
+function toast(msg, ok=true) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = ok ? '#1a1a1a' : '#c0392b';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+/* ─ FILTRO ─ */
+function filtrar() {
+  const cat = document.getElementById('filterCat')?.value || '';
+  document.querySelectorAll('.product-row').forEach(r => {
+    r.style.display = (!cat || r.dataset.cat === cat) ? '' : 'none';
   });
 }
 
-/* Eliminar producto */
-function eliminarProducto(id, nombre) {
-  if (!confirm(`¿Eliminar "${nombre}"?\n\nEsta acción no se puede deshacer.`)) return;
-  fetch('?ajax=eliminar', {
-    method: 'POST',
-    body: new URLSearchParams({ id }),
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-  })
-  .then(r => r.json())
-  .then(d => {
+/* ─ ELIMINAR ─ */
+async function eliminar(id, btn) {
+  if (!confirm('¿Eliminar este producto?')) return;
+  const fd = new FormData(); fd.append('id', id);
+  const r = await fetch(BASE+'eliminar', {method:'POST', body:fd});
+  const d = await r.json();
+  if (d.success) { btn.closest('.product-row').remove(); toast('Producto eliminado'); }
+  else toast('Error al eliminar', false);
+}
+
+/* ─ EDITAR ─ */
+let editImagenes = [];
+
+async function abrirEditar(id) {
+  const r = await fetch(BASE+'get_producto&id='+id);
+  const p = await r.json();
+  document.getElementById('editId').value = p.id;
+  document.getElementById('editNombre').value = p.nombre || '';
+  document.getElementById('editDescripcion').value = p.descripcion || '';
+  document.getElementById('editPrecio').value = p.precio || '';
+  document.getElementById('editCategoria').value = p.categoria || 'general';
+  document.getElementById('editMaterial').value = p.material || '';
+  document.getElementById('editDimensiones').value = p.dimensiones || '';
+  document.getElementById('editPeso').value = p.peso || '';
+  document.getElementById('editDestacado').checked = !!p.destacado;
+  document.getElementById('editActivo').checked = p.activo !== false;
+  editImagenes = p.imagenes || [];
+  renderImgGrid();
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function renderImgGrid() {
+  const grid = document.getElementById('imgGrid');
+  const id = document.getElementById('editId').value;
+  grid.innerHTML = '';
+  editImagenes.forEach((img, i) => {
+    const d = document.createElement('div');
+    d.className = 'img-thumb' + (i===0?' principal':'');
+    d.innerHTML = `<img src="/assets/img/productos/${img}" alt=""><button class="img-remove" onclick="quitarImg('${img}', ${id})">×</button>${i===0?'<div class="img-label">Principal</div>':''}`;
+    grid.appendChild(d);
+  });
+  const add = document.createElement('div');
+  add.className = 'img-add';
+  add.innerHTML = '+';
+  add.onclick = () => document.getElementById('fileInput').click();
+  grid.appendChild(add);
+}
+
+async function quitarImg(img, id) {
+  const fd = new FormData(); fd.append('id', id); fd.append('img', img);
+  const r = await fetch(BASE+'remove_img', {method:'POST', body:fd});
+  const d = await r.json();
+  if (d.success) { editImagenes = editImagenes.filter(x=>x!==img); renderImgGrid(); toast('Imagen eliminada'); }
+}
+
+async function subirImagenes() {
+  const id = document.getElementById('editId').value;
+  const files = document.getElementById('fileInput').files;
+  for (const file of files) {
+    const fd = new FormData(); fd.append('imagen', file);
+    const r = await fetch(BASE+'upload', {method:'POST', body:fd});
+    const d = await r.json();
     if (d.success) {
-      const row = document.getElementById('row-' + id);
-      if (row) row.remove();
-    } else {
-      alert('Error al eliminar');
+      editImagenes.push(d.filename);
+      const pros = JSON.parse(<?= json_encode(json_encode($productos)) ?>);
+      const p = pros.find(x=>x.id==id);
+      if (p) { p.imagenes = editImagenes; }
     }
-  });
+  }
+  const fd2 = new FormData();
+  fd2.append('id', id); fd2.append('imagenes', JSON.stringify(editImagenes));
+  renderImgGrid();
+  document.getElementById('fileInput').value = '';
+  toast('Imagen subida');
 }
 
-/* Preview fotos nuevas antes de subir */
-function previewNewFiles(input) {
-  const wrap = document.getElementById('new-imgs-wrap');
-  if (!wrap) return;
-  Array.from(input.files).forEach(file => {
-    const reader = new FileReader();
-    reader.onload = e => {
-      const div = document.createElement('div');
-      div.className = 'img-item';
-      div.innerHTML = `<img src="${e.target.result}" style="width:90px;height:90px;object-fit:cover;border-radius:8px">`;
-      wrap.appendChild(div);
-    };
-    reader.readAsDataURL(file);
-  });
+async function guardarProducto() {
+  const id = document.getElementById('editId').value;
+  const fd = new FormData();
+  fd.append('id', id);
+  fd.append('nombre', document.getElementById('editNombre').value);
+  fd.append('descripcion', document.getElementById('editDescripcion').value);
+  fd.append('precio', document.getElementById('editPrecio').value);
+  fd.append('categoria', document.getElementById('editCategoria').value);
+  fd.append('material', document.getElementById('editMaterial').value);
+  fd.append('dimensiones', document.getElementById('editDimensiones').value);
+  fd.append('peso', document.getElementById('editPeso').value);
+  if (document.getElementById('editActivo').checked) fd.append('activo','1');
+  if (document.getElementById('editDestacado').checked) fd.append('destacado','1');
+  const r = await fetch(BASE+'save_producto', {method:'POST', body:fd});
+  const d = await r.json();
+  if (d.success) {
+    cerrarModal();
+    toast('Guardado correctamente');
+    setTimeout(()=>location.reload(), 800);
+  } else toast('Error al guardar', false);
 }
 
-/* Eliminar imagen existente */
-function removeImg(url, productId) {
-  if (!confirm('¿Eliminar esta foto?')) return;
-  fetch('?ajax=remove_img', {
-    method: 'POST',
-    body: new URLSearchParams({ id: productId, url }),
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-  })
-  .then(r => r.json())
-  .then(d => {
-    if (d.success) {
-      const key = md5simple(url);
-      // update hidden field
-      const hidden = document.getElementById('imagenes_json');
-      if (hidden) {
-        const imgs = JSON.parse(hidden.value || '[]').filter(i => i !== url);
-        hidden.value = JSON.stringify(imgs);
-      }
-      // remove visual element (find by data or use parent)
-      document.querySelectorAll('.img-item').forEach(el => {
-        if (el.querySelector('img')?.getAttribute('src')?.includes(url.split('/').pop())) {
-          el.remove();
-        }
-      });
-    }
-  });
+function cerrarModal() { document.getElementById('modalOverlay').classList.remove('open'); }
+
+/* ─ NUEVO ─ */
+function abrirNuevo() { document.getElementById('modalNuevo').classList.add('open'); }
+
+async function crearProducto() {
+  const fd = new FormData();
+  fd.append('nombre', document.getElementById('newNombre').value);
+  fd.append('slug', document.getElementById('newSlug').value);
+  fd.append('descripcion', document.getElementById('newDescripcion').value);
+  fd.append('precio', document.getElementById('newPrecio').value);
+  fd.append('categoria', document.getElementById('newCategoria').value);
+  const r = await fetch(BASE+'nuevo_producto', {method:'POST', body:fd});
+  const d = await r.json();
+  if (d.success) { toast('Producto creado'); setTimeout(()=>location.reload(), 800); }
+  else toast('Error', false);
 }
 
-/* Subir foto de hero */
-function uploadHero(slot) {
-  const input = document.getElementById('hero-file-' + slot);
-  input.onchange = () => {
-    const fd = new FormData();
-    fd.append('imagen', input.files[0]);
-    fd.append('slot', slot + 1);
-    fetch('?ajax=upload_hero', { method: 'POST', body: fd })
-      .then(r => r.json())
-      .then(d => {
-        if (d.success) {
-          document.getElementById('s' + slot + '_imagen').value = d.url;
-          const prev = document.getElementById('hero-prev-' + slot);
-          if (prev) { prev.src = '../' + d.url; prev.style.display = ''; }
-          alert('Foto subida. Guardá los cambios para aplicar.');
-        } else {
-          alert('Error: ' + (d.error || 'Error al subir'));
-        }
-      });
-  };
-  input.click();
+/* ─ INICIO ─ */
+async function guardarInicio() {
+  const fd = new FormData();
+  fd.append('anuncio', document.getElementById('anuncio')?.value || '');
+  for (let i=0;i<3;i++) {
+    fd.append('titulo_'+i, document.getElementById('titulo_'+i)?.value||'');
+    fd.append('subtitulo_'+i, document.getElementById('subtitulo_'+i)?.value||'');
+    fd.append('badge_'+i, document.getElementById('badge_'+i)?.value||'');
+  }
+  fd.append('nos_titulo', document.getElementById('nos_titulo')?.value||'');
+  fd.append('nos_texto1', document.getElementById('nos_texto1')?.value||'');
+  fd.append('nos_texto2', document.getElementById('nos_texto2')?.value||'');
+  const r = await fetch(BASE+'save_config', {method:'POST', body:fd});
+  const d = await r.json();
+  toast(d.success ? '¡Guardado!' : 'Error al guardar', d.success);
 }
 
-/* md5 simple para claves (solo para UI, no seguridad) */
-function md5simple(str) { return btoa(str).replace(/[^a-zA-Z0-9]/g,'').substring(0,12); }
+async function subirHero(slot) {
+  const file = document.getElementById('hero-file-'+slot).files[0];
+  if (!file) return;
+  const fd = new FormData();
+  fd.append('imagen', file);
+  fd.append('slot', slot+1);
+  const r = await fetch(BASE+'upload_hero', {method:'POST', body:fd});
+  const d = await r.json();
+  if (d.success) {
+    const prev = document.getElementById('hero-preview-'+slot);
+    prev.outerHTML = `<img src="/assets/img/${d.filename}?t=${Date.now()}" class="hero-img-preview" id="hero-preview-${slot}">`;
+    toast('Imagen actualizada');
+  } else toast('Error al subir', false);
+}
 </script>
-
-</body></html>
+</body>
+</html>
