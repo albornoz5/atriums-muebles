@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Atriums Muebles – Fábrica de muebles de Algarrobo. Catálogo online con comedores, sillas, mesas, living y dormitorios. Resistencia, Machagai y Corrientes.">
+  <title>Atriums Muebles – Catálogo Online</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="icon" href="assets/img/logo.png">
+  <style>
+    /* Extra styles for index only */
+    .img-placeholder { width:100%; height:100%; background:linear-gradient(135deg,#e8ddd0,#d4c5b0); display:flex; align-items:center; justify-content:center; color:#9e8a72; font-size:0.75rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; }
+    .img-placeholder::before { content:"Foto"; }
+    .filter-count { display:inline-flex; align-items:center; justify-content:center; background:rgba(139,90,43,0.12); color:var(--color-accent); border-radius:10px; font-size:0.72rem; font-weight:700; padding:1px 7px; margin-left:6px; }
+    .filter-btn.active .filter-count { background:rgba(255,255,255,0.25); color:#fff; }
+    .product-card { cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="logo">
+      <img src="assets/img/logo.png" alt="Atriums Muebles" class="logo-img">
+      <span class="logo-text">Atriums Muebles</span>
+    </a>
+    <nav class="main-nav" aria-label="Navegación principal">
+      <a href="index.html" class="active">Inicio</a>
+      <a href="#catalog-section">Catálogo</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#locales">Locales</a>
+      <a href="#contacto">Contacto</a>
+      <a href="https://wa.me/5493734408167" target="_blank" rel="noopener" class="nav-cta">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2.003C6.479 2.003 2 6.48 2 12.004c0 1.777.463 3.449 1.27 4.906L2 22l5.233-1.244A9.944 9.944 0 0012.004 22c5.523 0 10.001-4.478 10.001-10.001S17.527 2.003 12.004 2.003zm0 18.185a8.17 8.17 0 01-4.148-1.133l-.298-.177-3.1.737.78-2.965-.193-.302A8.17 8.17 0 013.82 12c0-4.512 3.67-8.182 8.183-8.182 4.512 0 8.182 3.67 8.182 8.182 0 4.512-3.67 8.188-8.181 8.188z"/></svg>
+        WhatsApp
+      </a>
+    </nav>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú" onclick="toggleMenu()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile nav -->
+<nav class="mobile-nav" id="mobile-nav" aria-label="Menú móvil">
+  <button class="mobile-nav__close" onclick="toggleMenu()" aria-label="Cerrar menú">✕</button>
+  <a href="index.html" onclick="toggleMenu()">Inicio</a>
+  <a href="#catalog-section" onclick="toggleMenu()">Catálogo</a>
+  <a href="#nosotros" onclick="toggleMenu()">Nosotros</a>
+  <a href="#locales" onclick="toggleMenu()">Locales</a>
+  <a href="#contacto" onclick="toggleMenu()">Contacto</a>
+  <a href="https://wa.me/5493734408167" target="_blank" rel="noopener" class="nav-cta">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2.003C6.479 2.003 2 6.48 2 12.004c0 1.777.463 3.449 1.27 4.906L2 22l5.233-1.244A9.944 9.944 0 0012.004 22c5.523 0 10.001-4.478 10.001-10.001S17.527 2.003 12.004 2.003zm0 18.185a8.17 8.17 0 01-4.148-1.133l-.298-.177-3.1.737.78-2.965-.193-.302A8.17 8.17 0 013.82 12c0-4.512 3.67-8.182 8.183-8.182 4.512 0 8.182 3.67 8.182 8.182 0 4.512-3.67 8.188-8.181 8.188z"/></svg>
+    Escribinos por WhatsApp
+  </a>
+</nav>
+
+<!-- ===== HERO CAROUSEL ===== -->
+<section class="hero" id="hero">
+  <div class="hero-carousel" id="heroCarousel">
+
+    <!-- Slide 1 -->
+    <div class="hero-slide active" style="background:linear-gradient(rgba(0,0,0,0.52),rgba(0,0,0,0.52)),url('assets/img/hero-1.jpg') center/cover no-repeat">
+      <div class="container">
+        <div class="hero-content">
+          <span class="hero-badge">Fábrica Propia · Stock Permanente</span>
+          <h1>Muebles de <em>Algarrobo</em><br>directo de fábrica</h1>
+          <p>Diseñados y fabricados en el Chaco. Envíos a todo el país. Hablá directamente con el dueño y obtené el mejor precio.</p>
+          <div class="hero-actions">
+            <a href="#catalog-section" class="btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+              Ver catálogo completo
+            </a>
+            <a href="https://wa.me/5493734408167" target="_blank" rel="noopener" class="btn-outline">Consultar precio</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="hero-slide" style="background:linear-gradient(rgba(0,0,0,0.52),rgba(0,0,0,0.52)),url('assets/img/hero-2.jpg') center/cover no-repeat">
+      <div class="container">
+        <div class="hero-content">
+          <span class="hero-badge">21 Modelos · Sillas tapizadas y sin tapizar</span>
+          <h1>Comedores que <em>reúnen</em><br>a la familia</h1>
+          <p>Mesas desde 1.20 m hasta 3 m con sillas Juliana, Martina, Sofía o Nórdico. Stock permanente, sin esperas.</p>
+          <div class="hero-actions">
+            <a href="#catalog-section" class="btn-primary" onclick="setTimeout(()=>applyFilter('comedores'),400)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+              Ver comedores
+            </a>
+            <a href="https://wa.me/5493734408167" target="_blank" rel="noopener" class="btn-outline">Consultar precio</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="hero-slide" style="background:linear-gradient(rgba(0,0,0,0.52),rgba(0,0,0,0.52)),url('assets/img/hero-3.jpg') center/cover no-repeat">
+      <div class="container">
+        <div class="hero-content">
+          <span class="hero-badge">Living · Dormitorio · Bahiuts · Cristaleros</span>
+          <h1>Tu hogar con el <em>alma</em><br>del Algarrobo</h1>
+          <p>Desde bahiuts y cristaleros hasta camas y mesas de luz. Todo fabricado con madera nativa del norte argentino.</p>
+          <div class="hero-actions">
+            <a href="#catalog-section" class="btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+              Ver catálogo
+            </a>
+            <a href="https://wa.me/5493734408167" target="_blank" rel="noopener" class="btn-outline">Consultar precio</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <button class="hero-arrow hero-prev" onclick="heroSlide(-1)" aria-label="Slide anterior">&#8249;</button>
+  <button class="hero-arrow hero-next" onclick="heroSlide(1)" aria-label="Slide siguiente">&#8250;</button>
+  <div class="hero-dots" id="heroDots">
+    <button class="hero-dot active" onclick="heroGoTo(0)" aria-label="Slide 1"></button>
+    <button class="hero-dot" onclick="heroGoTo(1)" aria-label="Slide 2"></button>
+    <button class="hero-dot" onclick="heroGoTo(2)" aria-label="Slide 3"></button>
+  </div>
+</section>
+
+<!-- ===== BENEFITS BAR ===== -->
+<section class="benefits-bar">
+  <div class="container">
+    <div class="benefit-item">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      <div><strong>Fabricación propia</strong><span>Calidad garantizada</span></div>
+    </div>
+    <div class="benefit-item">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zm-.5 1.5l1.96 2.5H17V9.5h2.5zM6 18c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm2.22-3c-.55-.61-1.34-1-2.22-1s-1.67.39-2.22 1H3V6h12v9H8.22zM18 18c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>
+      <div><strong>Envíos a todo el país</strong><span>Coordinamos la entrega</span></div>
+    </div>
+    <div class="benefit-item">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+      <div><strong>Todos los medios de pago</strong><span>Tarjeta, transferencia o efectivo</span></div>
+    </div>
+    <div class="benefit-item">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+      <div><strong>Atención directa con el dueño</strong><span>Sin intermediarios</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NOSOTROS ===== -->
+<section id="nosotros" class="nosotros-section">
+  <div class="container nosotros-grid">
+    <div class="nosotros-text">
+      <span class="label">Sobre nosotros</span>
+      <h2>Más de 20 años fabricando muebles con alma chaqueña</h2>
+      <p>En Atriums Muebles fabricamos cada pieza con madera de Algarrobo seleccionada, aprovechando la resistencia y la belleza natural de esta madera única del norte argentino.</p>
+      <p>Contamos con stock permanente en nuestros locales de Resistencia, Machagai y Corrientes. Cada mueble sale directamente de nuestra fábrica, sin intermediarios.</p>
+      <a href="https://wa.me/5493734408167" target="_blank" rel="noopener" class="btn-primary" style="display:inline-flex;margin-top:12px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2.003C6.479 2.003 2 6.48 2 12.004c0 1.777.463 3.449 1.27 4.906L2 22l5.233-1.244A9.944 9.944 0 0012.004 22c5.523 0 10.001-4.478 10.001-10.001S17.527 2.003 12.004 2.003zm0 18.185a8.17 8.17 0 01-4.148-1.133l-.298-.177-3.1.737.78-2.965-.193-.302A8.17 8.17 0 013.82 12c0-4.512 3.67-8.182 8.183-8.182 4.512 0 8.182 3.67 8.182 8.182 0 4.512-3.67 8.188-8.181 8.188z"/></svg>
+        Escribinos ahora
+      </a>
+    </div>
+    <div class="nosotros-stats">
+      <div class="nosotros-stat"><div class="nosotros-stat__num">20+</div><div class="nosotros-stat__label">Años de experiencia</div></div>
+      <div class="nosotros-stat"><div class="nosotros-stat__num">65+</div><div class="nosotros-stat__label">Productos en catálogo</div></div>
+      <div class="nosotros-stat"><div class="nosotros-stat__num">3</div><div class="nosotros-stat__label">Locales en el NEA</div></div>
+      <div class="nosotros-stat"><div class="nosotros-stat__num">100%</div><div class="nosotros-stat__label">Fabricación propia</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CATALOG SECTION ===== -->
+<section class="catalog-section" id="catalog-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Catálogo de Productos</h2>
+      <p>Todos nuestros muebles de Algarrobo, en el mismo orden que nuestro catálogo de WhatsApp.</p>
+    </div>
+    <div class="filters" id="filters" role="group" aria-label="Filtrar por categoría">
+      <!-- generado por JS -->
+    </div>
+    <div class="product-grid" id="product-grid" role="list">
+      <!-- generado por JS -->
+    </div>
+    <div class="no-results" id="no-results">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <p style="margin-top:16px;">No se encontraron productos en esta categoría.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LOCALES ===== -->
+<section class="locations-section" id="locales">
+  <div class="container">
+    <div class="section-header">
+      <h2>Visitanos en nuestros locales</h2>
+      <p>Tres puntos de venta en el nordeste argentino con stock permanente.</p>
+    </div>
+    <div class="locations-grid">
+      <div class="location-card">
+        <div class="location-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        </div>
+        <h3>Resistencia</h3>
+        <p>Av. Ávalos 235<br>Resistencia, Chaco<br><br>
+        <a href="tel:+5493734408167" style="color:var(--color-accent);font-weight:600;">3734 408167</a></p>
+      </div>
+      <div class="location-card">
+        <div class="location-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        </div>
+        <h3>Machagai</h3>
+        <p>Ruta Nacional 16 – Km 137<br>Machagai, Chaco<br><br>
+        <a href="tel:+5493734408167" style="color:var(--color-accent);font-weight:600;">3734 408167</a></p>
+      </div>
+      <div class="location-card">
+        <div class="location-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        </div>
+        <h3>Corrientes</h3>
+        <p>San Luis 1467<br>Corrientes, Corrientes<br><br>
+        <a href="tel:+5493734408167" style="color:var(--color-accent);font-weight:600;">3734 408167</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACTO ===== -->
+<section id="contacto" style="padding:64px 0;background:#fff;border-top:1px solid var(--color-border);">
+  <div class="container" style="text-align:center;max-width:560px;margin:0 auto;">
+    <h2 style="font-family:var(--font-serif);font-size:clamp(1.8rem,3vw,2.4rem);margin-bottom:16px;">¿Tenés alguna consulta?</h2>
+    <p style="color:var(--color-text-muted);margin-bottom:32px;font-size:1rem;">Escribinos por WhatsApp y te respondemos al instante. También podés llamarnos o visitarnos en cualquiera de nuestros locales.</p>
+    <a href="https://wa.me/5493734408167" target="_blank" rel="noopener" class="btn-primary" style="display:inline-flex;font-size:1.05rem;padding:16px 36px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2.003C6.479 2.003 2 6.48 2 12.004c0 1.777.463 3.449 1.27 4.906L2 22l5.233-1.244A9.944 9.944 0 0012.004 22c5.523 0 10.001-4.478 10.001-10.001S17.527 2.003 12.004 2.003zm0 18.185a8.17 8.17 0 01-4.148-1.133l-.298-.177-3.1.737.78-2.965-.193-.302A8.17 8.17 0 013.82 12c0-4.512 3.67-8.182 8.183-8.182 4.512 0 8.182 3.67 8.182 8.182 0 4.512-3.67 8.188-8.181 8.188z"/></svg>
+      Escribir por WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/img/logo.png" alt="Atriums Muebles" style="height:56px;width:56px;object-fit:cover;border-radius:4px;margin-bottom:12px;">
+        <p>Fábrica de muebles de Algarrobo en el corazón del Chaco. Calidad, durabilidad y diseño directo de fábrica.</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/atriumsmueblesalgarrobo" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/atriumsmuebles/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://wa.me/5493734408167" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2.003C6.479 2.003 2 6.48 2 12.004c0 1.777.463 3.449 1.27 4.906L2 22l5.233-1.244A9.944 9.944 0 0012.004 22c5.523 0 10.001-4.478 10.001-10.001S17.527 2.003 12.004 2.003zm0 18.185a8.17 8.17 0 01-4.148-1.133l-.298-.177-3.1.737.78-2.965-.193-.302A8.17 8.17 0 013.82 12c0-4.512 3.67-8.182 8.183-8.182 4.512 0 8.182 3.67 8.182 8.182 0 4.512-3.67 8.188-8.181 8.188z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Catálogo</h4>
+        <ul>
+          <li><a href="#catalog-section" onclick="applyFilter('comedores');return true;">Juegos de Comedor</a></li>
+          <li><a href="#catalog-section" onclick="applyFilter('sillas');return true;">Sillas</a></li>
+          <li><a href="#catalog-section" onclick="applyFilter('mesas');return true;">Mesas</a></li>
+          <li><a href="#catalog-section" onclick="applyFilter('living');return true;">Living</a></li>
+          <li><a href="#catalog-section" onclick="applyFilter('dormitorio');return true;">Dormitorio</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="tel:+5493734408167">📞 3734 408167</a></li>
+          <li><a href="https://wa.me/5493734408167" target="_blank" rel="noopener">💬 WhatsApp</a></li>
+          <li><a href="#locales">📍 Nuestros locales</a></li>
+        </ul>
+        <h4 style="margin-top:20px;">Medios de pago</h4>
+        <ul>
+          <li><a href="#">Tarjeta de crédito / débito</a></li>
+          <li><a href="#">Transferencia bancaria</a></li>
+          <li><a href="#">Efectivo</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Atriums Muebles. Todos los derechos reservados.</p>
+      <p>Diseño web por <a href="https://wa.link/0h3ljk" target="_blank" rel="noopener" style="color:var(--color-accent);">Ingenio Consultoría Industrial</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== FLOATING WA ===== -->
+<a href="https://wa.me/5493734408167" class="wa-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2.003C6.479 2.003 2 6.48 2 12.004c0 1.777.463 3.449 1.27 4.906L2 22l5.233-1.244A9.944 9.944 0 0012.004 22c5.523 0 10.001-4.478 10.001-10.001S17.527 2.003 12.004 2.003zm0 18.185a8.17 8.17 0 01-4.148-1.133l-.298-.177-3.1.737.78-2.965-.193-.302A8.17 8.17 0 013.82 12c0-4.512 3.67-8.182 8.183-8.182 4.512 0 8.182 3.67 8.182 8.182 0 4.512-3.67 8.188-8.181 8.188z"/></svg>
+</a>
+
+<!-- ===== PRODUCT MODAL ===== -->
+<div class="product-modal" id="product-modal" role="dialog" aria-modal="true" aria-label="Detalle del producto">
+  <div class="product-modal__box">
+    <button class="product-modal__close" onclick="closeProductModal()" aria-label="Cerrar">✕</button>
+    <div class="product-modal__top">
+      <div class="product-modal__gallery">
+        <div class="product-modal__main-img">
+          <img id="modal-main-img" src="" alt="">
+        </div>
+        <div class="product-modal__thumbs" id="modal-thumbs"></div>
+      </div>
+      <div class="product-modal__info">
+        <div class="product-modal__cat" id="modal-cat"></div>
+        <h2 class="product-modal__name" id="modal-name"></h2>
+        <div class="modal-price-block">
+          <div class="product-modal__price" id="modal-price"></div>
+          <div class="modal-price-cuotas" id="modal-price-cuotas"></div>
+          <div class="modal-price-promo" id="modal-price-promo"></div>
+        </div>
+        <p class="product-modal__desc" id="modal-desc"></p>
+        <a class="btn-wa-large" id="modal-wa-btn" href="#" target="_blank" rel="noopener">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2.003C6.479 2.003 2 6.48 2 12.004c0 1.777.463 3.449 1.27 4.906L2 22l5.233-1.244A9.944 9.944 0 0012.004 22c5.523 0 10.001-4.478 10.001-10.001S17.527 2.003 12.004 2.003zm0 18.185a8.17 8.17 0 01-4.148-1.133l-.298-.177-3.1.737.78-2.965-.193-.302A8.17 8.17 0 013.82 12c0-4.512 3.67-8.182 8.183-8.182 4.512 0 8.182 3.67 8.182 8.182 0 4.512-3.67 8.188-8.181 8.188z"/></svg>
+          Consultar por WhatsApp
+        </a>
+      </div>
+    </div>
+    <div class="product-modal__related" id="modal-related">
+      <h3>Más de esta categoría</h3>
+      <div class="modal-carousel" id="modal-related-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== LIGHTBOX ===== -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliada">
+  <div class="lightbox__inner">
+    <button class="lightbox__close" onclick="closeLightbox()" aria-label="Cerrar">✕</button>
+    <img id="lb-img" src="" alt="Producto Atriums Muebles">
+    <p class="lightbox__caption" id="lb-caption"></p>
+  </div>
+</div>
+
+<script src="assets/js/app.js"></script>
+</body>
+</html>
