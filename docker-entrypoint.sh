@@ -13,4 +13,8 @@ if [ -z "$(ls -A /var/www/html/assets/img/productos 2>/dev/null)" ]; then
     chown -R www-data:www-data /var/www/html/assets/img/productos
 fi
 
+# Asegurar permisos de escritura en el volumen de imágenes siempre
+chown -R www-data:www-data /var/www/html/assets/img/productos 2>/dev/null || true
+chmod -R 775 /var/www/html/assets/img/productos 2>/dev/null || true
+
 exec "$@"
