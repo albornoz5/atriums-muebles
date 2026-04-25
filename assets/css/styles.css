@@ -53,7 +53,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   width: 100%;
 }
 .logo { display: flex; align-items: center; gap: 10px; color: var(--color-text); }
-.logo-img { height: 42px; width: 42px; object-fit: contain; }
+.logo-img { height: 42px; width: 42px; object-fit: contain; filter: brightness(0); }
 .logo-text { display: none; }
 
 .main-nav { display: flex; align-items: center; gap: 4px; }
@@ -937,9 +937,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .benefits-bar .container { gap: 20px; }
   .hero-carousel, .hero-slide { min-height: 420px; }
   .hero-slide.active { padding-bottom: 56px; }
-  .hero-arrow { width: 34px; height: 34px; font-size: 1.4rem; }
-  .hero-prev { left: 8px; }
-  .hero-next { right: 8px; }
+  .hero-arrow { display: none; }
   .filters { justify-content: center; flex-wrap: wrap; overflow-x: visible; }
   .filter-cat-card { flex-shrink: 1; min-width: 72px; }
   .nosotros-grid { grid-template-columns: 1fr; gap: 28px; }
