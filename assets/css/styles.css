@@ -193,7 +193,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   border-radius: var(--radius);
   transition: opacity var(--transition);
 }
-.btn-primary:hover { opacity: 0.85; }
+.btn-primary:hover { background: var(--color-accent); opacity: 1; }
 .btn-outline {
   display: inline-flex;
   align-items: center;
@@ -447,7 +447,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   letter-spacing: 0.06em;
   transition: opacity var(--transition);
 }
-.btn-wa:hover { opacity: 0.8; }
+.btn-wa:hover { background: var(--color-accent); opacity: 1; }
 .btn-wa svg { flex-shrink: 0; }
 
 /* ===== NO RESULTS ===== */
@@ -658,7 +658,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   width: 100%;
   justify-content: center;
 }
-.btn-wa-large:hover { opacity: 0.88; }
+.btn-wa-large:hover { background: var(--color-wa-hover); opacity: 1; }
 .detail-info__note {
   text-align: center;
   font-size: 0.76rem;
