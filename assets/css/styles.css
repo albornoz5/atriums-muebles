@@ -325,26 +325,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   transition: transform 0.4s ease;
 }
 .product-card:hover .product-card__img-wrap img { transform: scale(1.04); }
-.product-card__img-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity var(--transition);
-}
-.product-card__img-wrap:hover .product-card__img-overlay { opacity: 1; }
-.product-card__img-overlay span {
-  color: #fff;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  background: var(--color-text);
-  padding: 8px 16px;
-}
+.product-card__img-overlay { display: none; }
 
 /* Discount badge */
 .product-card__badge {
