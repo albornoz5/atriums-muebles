@@ -434,12 +434,14 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* ===== PAYMENT LOGOS ===== */
 .pay-img {
   display: inline-block;
-  height: 20px;
+  height: 14px;
   width: auto;
+  max-width: 36px;
   vertical-align: middle;
-  margin-right: 4px;
-  border-radius: 3px;
+  margin-right: 3px;
+  border-radius: 2px;
   object-fit: contain;
+  opacity: 0.85;
 }
 
 /* ===== NO RESULTS ===== */
