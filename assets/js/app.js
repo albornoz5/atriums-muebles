@@ -142,11 +142,11 @@ function openProductModal(id) {
   setEl('modal-cat',         formatCat(p.categoria));
   setEl('modal-name',        p.nombre);
   setEl('modal-price',       p.precio);
-  setElHTML('modal-price-cuotas', `${LOGOS_12} 12 cuotas sin interés de <strong>${p.precio_cuotas}</strong>`);
+  setElHTML('modal-price-cuotas', `12 cuotas sin interés de <strong>${p.precio_cuotas}</strong> ${LOGOS_12}`);
   const old6 = document.getElementById('modal-price-cuotas6');
   if (old6) old6.remove();
   document.getElementById('modal-price-cuotas').insertAdjacentHTML('afterend',
-    `<div class="modal-price-cuotas" id="modal-price-cuotas6">${LOGOS_6} 6 cuotas sin interés de <strong>${cuotas6(p.precio)}</strong></div>`);
+    `<div class="modal-price-cuotas" id="modal-price-cuotas6">6 cuotas sin interés de <strong>${cuotas6(p.precio)}</strong> ${LOGOS_6}</div>`);
   setEl('modal-price-promo',  `${p.precio_promo} efectivo / transferencia`);
   setEl('modal-desc',        p.descripcion);
 
