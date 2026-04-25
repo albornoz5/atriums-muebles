@@ -29,6 +29,23 @@ function handleImgError(img) {
   img.parentElement.style.background = 'linear-gradient(135deg,#e8ddd0,#d4c5b0)';
 }
 
+function parsePrecio(str) {
+  return parseInt(String(str).replace(/[^0-9]/g, ''), 10) || 0;
+}
+
+function formatPeso(n) {
+  return '$' + n.toLocaleString('es-AR');
+}
+
+function cuotas6(precioStr) {
+  const val = parsePrecio(precioStr);
+  if (!val) return '';
+  return formatPeso(Math.ceil(val / 6));
+}
+
+const LOGOS_12 = `<span class="pay-logo pay-tuya">TUYA</span><span class="pay-logo pay-nbch">NBCH</span><span class="pay-logo pay-bctes">Ctes.</span>`;
+const LOGOS_6  = `<span class="pay-logo pay-visa">VISA</span><span class="pay-logo pay-mc">MC</span><span class="pay-logo pay-naranja">Naranja</span>`;
+
 /* ===== SVG ICONS ===== */
 const SVG_WA_MD = `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2.003C6.479 2.003 2 6.48 2 12.004c0 1.777.463 3.449 1.27 4.906L2 22l5.233-1.244A9.944 9.944 0 0012.004 22c5.523 0 10.001-4.478 10.001-10.001S17.527 2.003 12.004 2.003zm0 18.185a8.17 8.17 0 01-4.148-1.133l-.298-.177-3.1.737.78-2.965-.193-.302A8.17 8.17 0 013.82 12c0-4.512 3.67-8.182 8.183-8.182 4.512 0 8.182 3.67 8.182 8.182 0 4.512-3.67 8.188-8.181 8.188z"/></svg>`;
 
@@ -65,7 +82,8 @@ function renderGrid(list) {
         <p class="product-card__desc">${p.descripcion}</p>
         <div class="product-card__prices">
           <span class="price-main">${p.precio}</span>
-          <span class="price-cuotas">12 cuotas sin interés de <strong>${p.precio_cuotas}</strong></span>
+          <span class="price-cuotas">${LOGOS_12} 12 cuotas sin interés de <strong>${p.precio_cuotas}</strong></span>
+          <span class="price-cuotas">${LOGOS_6} 6 cuotas sin interés de <strong>${cuotas6(p.precio)}</strong></span>
           <span class="price-promo"><strong>${p.precio_promo}</strong> efectivo / transferencia</span>
         </div>
         <div class="product-card__footer">
@@ -126,7 +144,9 @@ function openProductModal(id) {
   setEl('modal-cat',         formatCat(p.categoria));
   setEl('modal-name',        p.nombre);
   setEl('modal-price',       p.precio);
-  setEl('modal-price-cuotas', `12 cuotas sin interés de ${p.precio_cuotas}`);
+  setEl('modal-price-cuotas', `${LOGOS_12} 12 cuotas sin interés de ${p.precio_cuotas}`);
+  document.getElementById('modal-price-cuotas').insertAdjacentHTML('afterend',
+    `<div class="modal-price-cuotas" id="modal-price-cuotas6">${LOGOS_6} 6 cuotas sin interés de <strong>${cuotas6(p.precio)}</strong></div>`);
   setEl('modal-price-promo',  `${p.precio_promo} efectivo / transferencia`);
   setEl('modal-desc',        p.descripcion);
 
