@@ -43,7 +43,7 @@ function cuotas6(precioStr) {
   return formatPeso(Math.ceil(val / 6));
 }
 
-const LOGOS_12 = `<img class="pay-img" src="assets/img/logos/tuya.jpg" alt="TUYA"><img class="pay-img" src="assets/img/logos/nbch.jpg" alt="NBCH"><img class="pay-img" src="assets/img/logos/bcorrientes.png" alt="Banco Corrientes">`;
+const LOGOS_12 = `<img class="pay-img" src="assets/img/logos/tuya.svg" alt="TUYA"><img class="pay-img" src="assets/img/logos/nbch.jpg" alt="NBCH"><img class="pay-img" src="assets/img/logos/bcorrientes.png" alt="Banco Corrientes">`;
 const LOGOS_6  = `<img class="pay-img" src="assets/img/logos/visa.svg" alt="Visa"><img class="pay-img" src="assets/img/logos/mastercard.svg" alt="Mastercard"><img class="pay-img" src="assets/img/logos/naranja.png" alt="Naranja X">`;
 
 /* ===== SVG ICONS ===== */
@@ -144,7 +144,9 @@ function openProductModal(id) {
   setEl('modal-cat',         formatCat(p.categoria));
   setEl('modal-name',        p.nombre);
   setEl('modal-price',       p.precio);
-  setEl('modal-price-cuotas', `${LOGOS_12} 12 cuotas sin interés de ${p.precio_cuotas}`);
+  setElHTML('modal-price-cuotas', `${LOGOS_12} 12 cuotas sin interés de <strong>${p.precio_cuotas}</strong>`);
+  const old6 = document.getElementById('modal-price-cuotas6');
+  if (old6) old6.remove();
   document.getElementById('modal-price-cuotas').insertAdjacentHTML('afterend',
     `<div class="modal-price-cuotas" id="modal-price-cuotas6">${LOGOS_6} 6 cuotas sin interés de <strong>${cuotas6(p.precio)}</strong></div>`);
   setEl('modal-price-promo',  `${p.precio_promo} efectivo / transferencia`);
@@ -353,6 +355,10 @@ function initDetailPage() {
 function setEl(id, text) {
   const el = document.getElementById(id);
   if (el) el.textContent = text;
+}
+function setElHTML(id, html) {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = html;
 }
 
 function switchThumb(idx, src, el) {
