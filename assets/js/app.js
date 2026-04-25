@@ -43,7 +43,7 @@ function cuotas6(precioStr) {
   return formatPeso(Math.ceil(val / 6));
 }
 
-const LOGOS_12 = `<img class="pay-img" src="assets/img/logos/tuya.svg" alt="TUYA"><img class="pay-img" src="assets/img/logos/nbch.jpg" alt="NBCH"><img class="pay-img" src="assets/img/logos/bcorrientes.png" alt="Banco Corrientes">`;
+const LOGOS_12 = `<img class="pay-img pay-img--wide" src="assets/img/logos/tuya-nbch.jpg" alt="TUYA NBCH"><img class="pay-img" src="assets/img/logos/bcorrientes.png" alt="Banco Corrientes">`;
 const LOGOS_6  = `<img class="pay-img" src="assets/img/logos/visa.svg" alt="Visa"><img class="pay-img" src="assets/img/logos/mastercard.svg" alt="Mastercard"><img class="pay-img" src="assets/img/logos/naranja.png" alt="Naranja X">`;
 
 /* ===== SVG ICONS ===== */

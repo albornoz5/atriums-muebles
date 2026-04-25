@@ -438,10 +438,14 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   width: auto;
   max-width: 36px;
   vertical-align: middle;
-  margin-right: 3px;
+  margin-right: 4px;
   border-radius: 2px;
   object-fit: contain;
-  opacity: 0.85;
+  opacity: 0.9;
+}
+.pay-img--wide {
+  max-width: 56px;
+  height: 16px;
 }
 
 /* ===== NO RESULTS ===== */
