@@ -43,8 +43,8 @@ function cuotas6(precioStr) {
   return formatPeso(Math.ceil(val / 6));
 }
 
-const LOGOS_12 = `<span class="pay-logo pay-tuya">TUYA</span><span class="pay-logo pay-nbch">NBCH</span><span class="pay-logo pay-bctes">Ctes.</span>`;
-const LOGOS_6  = `<span class="pay-logo pay-visa">VISA</span><span class="pay-logo pay-mc">MC</span><span class="pay-logo pay-naranja">Naranja</span>`;
+const LOGOS_12 = `<img class="pay-img" src="assets/img/logos/tuya.svg" alt="TUYA"><img class="pay-img" src="assets/img/logos/nbch.svg" alt="NBCH"><img class="pay-img" src="assets/img/logos/bcorrientes.svg" alt="Banco Corrientes">`;
+const LOGOS_6  = `<img class="pay-img" src="assets/img/logos/visa.svg" alt="Visa"><img class="pay-img" src="assets/img/logos/mastercard.svg" alt="Mastercard"><img class="pay-img" src="assets/img/logos/naranja.svg" alt="Naranja X">`;
 
 /* ===== SVG ICONS ===== */
 const SVG_WA_MD = `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2.003C6.479 2.003 2 6.48 2 12.004c0 1.777.463 3.449 1.27 4.906L2 22l5.233-1.244A9.944 9.944 0 0012.004 22c5.523 0 10.001-4.478 10.001-10.001S17.527 2.003 12.004 2.003zm0 18.185a8.17 8.17 0 01-4.148-1.133l-.298-.177-3.1.737.78-2.965-.193-.302A8.17 8.17 0 013.82 12c0-4.512 3.67-8.182 8.183-8.182 4.512 0 8.182 3.67 8.182 8.182 0 4.512-3.67 8.188-8.181 8.188z"/></svg>`;

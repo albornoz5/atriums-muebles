@@ -432,22 +432,15 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .btn-wa svg { flex-shrink: 0; }
 
 /* ===== PAYMENT LOGOS ===== */
-.pay-logo {
+.pay-img {
   display: inline-block;
-  font-size: 0.6rem;
-  font-weight: 800;
-  padding: 2px 5px;
-  border-radius: 3px;
-  margin-right: 3px;
-  letter-spacing: 0.03em;
+  height: 20px;
+  width: auto;
   vertical-align: middle;
+  margin-right: 4px;
+  border-radius: 3px;
+  object-fit: contain;
 }
-.pay-tuya    { background: #002d74; color: #fff; }
-.pay-nbch    { background: #004a99; color: #fff; }
-.pay-bctes   { background: #006633; color: #fff; }
-.pay-visa    { background: #1a1f71; color: #fff; }
-.pay-mc      { background: #eb001b; color: #fff; }
-.pay-naranja { background: #ff6600; color: #fff; }
 
 /* ===== NO RESULTS ===== */
 .no-results { text-align: center; padding: 60px 0; color: var(--color-text-muted); display: none; }
