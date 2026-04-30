@@ -396,6 +396,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-weight: 700;
   color: var(--color-text);
 }
+.price-consultar {
+  font-size: 0.88rem;
+  color: #888;
+  font-style: italic;
+}
 .price-cuotas {
   font-size: 0.72rem;
   color: var(--color-text-muted);

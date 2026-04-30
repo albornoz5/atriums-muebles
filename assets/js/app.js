@@ -80,10 +80,12 @@ function renderGrid(list) {
         <div class="product-card__cat">${formatCat(p.categoria)}</div>
         <h3 class="product-card__name">${p.nombre}</h3>
         <p class="product-card__desc">${p.descripcion}</p>
-        <div class="product-card__prices">
+        ${p.precio
+          ? `<div class="product-card__prices">
           <span class="price-main">${p.precio}</span>
           <span class="price-promo"><strong>${p.precio_promo}</strong> efectivo / transferencia</span>
-        </div>
+        </div>`
+          : `<div class="product-card__prices"><span class="price-consultar">Consultar precio</span></div>`}
         <div class="product-card__footer">
           <a class="btn-wa" href="${waLink(p.nombre)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
             ${SVG_WA_MD}
@@ -141,13 +143,17 @@ function openProductModal(id) {
 
   setEl('modal-cat',         formatCat(p.categoria));
   setEl('modal-name',        p.nombre);
-  setEl('modal-price',       p.precio);
-  setElHTML('modal-price-cuotas', `12 cuotas sin interés de <strong>${p.precio_cuotas}</strong> ${LOGOS_12}`);
+  setEl('modal-price', p.precio || 'Consultar precio');
   const old6 = document.getElementById('modal-price-cuotas6');
   if (old6) old6.remove();
-  document.getElementById('modal-price-cuotas').insertAdjacentHTML('afterend',
-    `<div class="modal-price-cuotas" id="modal-price-cuotas6">6 cuotas sin interés de <strong>${cuotas6(p.precio)}</strong> ${LOGOS_6}</div>`);
-  setEl('modal-price-promo',  `${p.precio_promo} efectivo / transferencia`);
+  if (p.precio_cuotas) {
+    setElHTML('modal-price-cuotas', `12 cuotas sin interés de <strong>${p.precio_cuotas}</strong> ${LOGOS_12}`);
+    document.getElementById('modal-price-cuotas').insertAdjacentHTML('afterend',
+      `<div class="modal-price-cuotas" id="modal-price-cuotas6">6 cuotas sin interés de <strong>${cuotas6(p.precio)}</strong> ${LOGOS_6}</div>`);
+  } else {
+    setElHTML('modal-price-cuotas', '');
+  }
+  setEl('modal-price-promo', p.precio_promo ? `${p.precio_promo} efectivo / transferencia` : '');
   setEl('modal-desc',        p.descripcion);
 
   const waBtn = document.getElementById('modal-wa-btn');
@@ -192,10 +198,12 @@ function openProductModal(id) {
             <div class="product-card__cat">${formatCat(r.categoria)}</div>
             <h3 class="product-card__name">${r.nombre}</h3>
             <p class="product-card__desc">${r.descripcion}</p>
-            <div class="product-card__prices">
+            ${r.precio
+              ? `<div class="product-card__prices">
               <span class="price-main">${r.precio}</span>
               <span class="price-promo"><strong>${r.precio_promo}</strong> efectivo</span>
-            </div>
+            </div>`
+              : `<div class="product-card__prices"><span class="price-consultar">Consultar precio</span></div>`}
             <div class="product-card__footer">
               <a class="btn-wa" href="${waLink(r.nombre)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
                 ${SVG_WA_MD} Consultar
@@ -335,7 +343,7 @@ function initDetailPage() {
           <h3 class="product-card__name"><a href="producto.html?id=${r.id}">${r.nombre}</a></h3>
           <p class="product-card__desc">${r.descripcion}</p>
           <div class="product-card__footer">
-            <span class="product-card__price">${r.precio}</span>
+            ${r.precio ? `<span class="product-card__price">${r.precio}</span>` : `<span class="price-consultar">Consultar precio</span>`}
             <a class="btn-wa" href="${waLink(r.nombre)}" target="_blank" rel="noopener">
               ${SVG_WA_MD} Consultar
             </a>
