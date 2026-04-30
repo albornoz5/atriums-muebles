@@ -2,5 +2,4 @@
 Thumbs.db
 *.log
 
-# Las imágenes de productos se mantienen en git para que el servidor las sirva
-# assets/img/productos/
+assets/img/productos/
