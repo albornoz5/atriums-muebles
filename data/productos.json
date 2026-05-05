@@ -514,7 +514,7 @@
         "nombre": "Sillón Nórdico Algarrobo Premium",
         "precio": "$319.540",
         "descripcion": "Sillon Nordico disenado para ser el centro del comedor. Estructura de algarrobo macizo con respaldo que abraza la espalda y asiento tapizado de alta densidad. Laca poliuretanica premium.",
-        "categoria": "sillas",
+        "categoria": "living",
         "orden": 34,
         "imagenes": [
             "data/img/productos/s05-nordico-1.webp",
@@ -531,7 +531,7 @@
         "nombre": "Sillón Julieta Algarrobo Premium",
         "precio": "$252.197",
         "descripcion": "Fabricada en madera de algarrobo seleccionada con proceso de secado que garantiza mayor durabilidad y menor peso. Terminacion en laca poliuretanica. Linea Premium.",
-        "categoria": "sillas",
+        "categoria": "living",
         "orden": 35,
         "imagenes": [
             "data/img/productos/s06-julieta-1.webp"
@@ -603,7 +603,7 @@
         "nombre": "Mesa de Arrime Algarrobo Premium",
         "precio": "$758.320",
         "descripcion": "Lineas puras de corte contemporaneo y minimalista. Madera de algarrobo seleccionado con acabado laqueado premium. Ideal para recibidores, laterales de sofa o pasillos.",
-        "categoria": "mesas",
+        "categoria": "living",
         "orden": 42,
         "imagenes": [
             "data/img/productos/m04-arrime-1.webp",
@@ -618,7 +618,7 @@
         "nombre": "Mesa de Arrime Clásica Algarrobo",
         "precio": "$769.630",
         "descripcion": "Mesa de arrime clasica en madera de algarrobo seleccionada. Diseno tradicional con acabado laqueado de alta resistencia. Ideal para recibidores y pasillos.",
-        "categoria": "mesas",
+        "categoria": "living",
         "orden": 43,
         "imagenes": [
             "data/img/productos/m05-arrime-clasica-1.webp"
@@ -976,7 +976,7 @@
         "nombre": "Mesa de Luz Clásica Algarrobo Premium",
         "precio": "$395.620",
         "descripcion": "Fabricada en madera de algarrobo seleccionada. Terminacion en laca poliuretanica. Medidas: 0.65 alto x 0.45 largo x 0.40 profundidad.",
-        "categoria": "dormitorio",
+        "categoria": "living",
         "orden": 68,
         "imagenes": [
             "data/img/productos/d05-mesa-luz-1.webp"
@@ -990,7 +990,7 @@
         "nombre": "Mesa de Luz Moderna Algarrobo Premium",
         "precio": "$439.650",
         "descripcion": "Fabricada en madera de algarrobo seleccionada. Terminacion en laca poliuretanica. Medidas: 0.65 alto x 0.45 largo x 0.35 profundidad.",
-        "categoria": "dormitorio",
+        "categoria": "living",
         "orden": 69,
         "imagenes": [
             "data/img/productos/d06-mesa-luz-moderna-1.webp",
