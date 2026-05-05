@@ -3,21 +3,21 @@
     "slides": [
       {
         "badge": "Fábrica Propia · Stock Permanente",
-        "titulo": "Muebles de Algarrobo\ndirecto de fábrica",
-        "subtitulo": "Diseñados y fabricados en el Chaco. Envíos a todo el país. Hablá directamente con el dueño y obtené el mejor precio.",
-        "imagen": "assets/img/hero-1.jpg"
+        "titulo": "EL CORAZÓN DEL HOGAR",
+        "subtitulo": "Encontrá los muebles que tu familia merece. Fabricación propia en algarrobo con acabados de lujo y diseños contemporáneos.",
+        "imagen": "assets/img/hero-3.jpg"
       },
       {
-        "badge": "21 Modelos · Sillas tapizadas y sin tapizar",
-        "titulo": "Comedores que reúnen\na la familia",
-        "subtitulo": "Mesas desde 1.20 m hasta 3 m con sillas Juliana, Martina, Sofía o Nórdico. Stock permanente, sin esperas.",
+        "badge": "Comedores · Stock permanente",
+        "titulo": "DISEÑADOS PARA DISFRUTAR,\nFABRICADOS PARA RESISTIR",
+        "subtitulo": "Creamos juegos de comedor pensados para durar generaciones. La calidez de lo moderno con la resistencia de siempre.",
         "imagen": "assets/img/hero-2.jpg"
       },
       {
-        "badge": "Living · Dormitorio · Bahiuts · Cristaleros",
-        "titulo": "Tu hogar con el alma\ndel Algarrobo",
-        "subtitulo": "Desde bahiuts y cristaleros hasta camas y mesas de luz. Todo fabricado con madera nativa del norte argentino.",
-        "imagen": "assets/img/hero-3.jpg"
+        "badge": "Diseño moderno · Calidad eterna",
+        "titulo": "LA EVOLUCIÓN DEL ALGARROBO.\nDISEÑO MODERNO & CALIDAD ETERNA",
+        "subtitulo": "Fabricamos muebles de Algarrobo con terminaciones de alta precisión. Elegancia y resistencia en cada detalle.",
+        "imagen": "assets/img/hero-1.jpg"
       }
     ]
   },
