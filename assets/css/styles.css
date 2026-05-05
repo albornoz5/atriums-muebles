@@ -162,7 +162,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .hero h1 {
   font-family: var(--font-display);
-  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+  font-size: clamp(1.8rem, 5.5vw, 4.2rem);
   font-weight: 700;
   color: #fff;
   line-height: 1.1;
@@ -986,9 +986,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
   .detail-grid { grid-template-columns: 1fr; gap: 28px; }
   .benefits-bar .container { gap: 20px; }
-  .hero-carousel, .hero-slide { min-height: 420px; }
-  .hero-slide.active { padding-bottom: 56px; }
+  .hero-carousel, .hero-slide { min-height: 480px; }
+  .hero-slide.active { padding: 48px 0 80px; }
   .hero-arrow { display: none; }
+  .hero h1 { font-size: clamp(1.5rem, 4.5vw, 2.4rem); }
   .filters { justify-content: center; flex-wrap: wrap; overflow-x: visible; }
   .filter-cat-card { flex-shrink: 1; min-width: 72px; }
   .nosotros-grid { grid-template-columns: 1fr; gap: 28px; }
@@ -1003,5 +1004,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .btn-wa { justify-content: center; }
   .footer-bottom { flex-direction: column; text-align: center; }
   .benefits-bar .container { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 12px; justify-items: start; }
-  .hero h1 { font-size: 2rem; }
+  .hero h1 { font-size: 1.4rem; }
+  .hero-slide.active { padding: 40px 0 88px; }
+  .hero p { font-size: 0.88rem; margin-bottom: 24px; }
+  .hero-actions { gap: 8px; }
+  .hero-dots { bottom: 24px; }
 }
