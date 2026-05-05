@@ -26,8 +26,7 @@
         "imagenes": [
             "data/img/productos/c02-160x090-6-martina-1.png",
             "data/img/productos/c02-160x090-6-martina-2.png",
-            "data/img/productos/c02-160x090-6-martina-3.png",
-            "data/img/productos/c02-160x090-6-martina-4.png"
+            "data/img/productos/c02-160x090-6-martina-3.png"
         ],
         "precio_cuotas": "$124.656",
         "precio_promo": "$1.196.701"
@@ -73,7 +72,8 @@
         "orden": 5,
         "imagenes": [
             "data/img/productos/c05-160x090-6-juliana-ibirapita-1.png",
-            "data/img/productos/c05-160x090-6-juliana-ibirapita-2.png"
+            "data/img/productos/c05-160x090-6-juliana-ibirapita-2.png",
+            "data/img/productos/c05-160x090-6-juliana-ibirapita-3.png"
         ],
         "precio_cuotas": "$132.519",
         "precio_promo": "$1.272.191"
@@ -120,7 +120,8 @@
         "orden": 8,
         "imagenes": [
             "data/img/productos/c08-120x120-6-sofia-1.png",
-            "data/img/productos/c08-120x120-6-sofia-2.png"
+            "data/img/productos/c08-120x120-6-sofia-2.png",
+            "data/img/productos/c08-120x120-6-sofia-3.png"
         ],
         "precio_cuotas": "$124.656",
         "precio_promo": "$1.196.701"
@@ -182,7 +183,8 @@
         "orden": 12,
         "imagenes": [
             "data/img/productos/c12-200x090-8-sofia-1.png",
-            "data/img/productos/c12-200x090-8-sofia-2.png"
+            "data/img/productos/c12-200x090-8-sofia-2.png",
+            "data/img/productos/c12-200x090-8-sofia-3.png"
         ],
         "precio_cuotas": "$153.716",
         "precio_promo": "$1.475.680"
@@ -198,9 +200,7 @@
         "imagenes": [
             "data/img/productos/c13-140x140-8-juliana-1.png",
             "data/img/productos/c13-140x140-8-juliana-2.png",
-            "data/img/productos/c13-140x140-8-juliana-3.png",
-            "data/img/productos/c13-140x140-8-juliana-4.png",
-            "data/img/productos/c13-140x140-8-juliana-5.png"
+            "data/img/productos/c13-140x140-8-juliana-3.png"
         ],
         "precio_cuotas": "$176.159",
         "precio_promo": "$1.691.132"
@@ -215,7 +215,8 @@
         "orden": 14,
         "imagenes": [
             "data/img/productos/c14-140x140-8-martina-1.png",
-            "data/img/productos/c14-140x140-8-martina-2.png"
+            "data/img/productos/c14-140x140-8-martina-2.png",
+            "data/img/productos/c14-140x140-8-martina-3.png"
         ],
         "precio_cuotas": "$176.159",
         "precio_promo": "$1.691.132"
@@ -230,8 +231,7 @@
         "orden": 15,
         "imagenes": [
             "data/img/productos/c15-140x140-8-sofia-ibirapita-1.png",
-            "data/img/productos/c15-140x140-8-sofia-ibirapita-2.png",
-            "data/img/productos/c15-140x140-8-sofia-ibirapita-3.png"
+            "data/img/productos/c15-140x140-8-sofia-ibirapita-2.png"
         ],
         "precio_cuotas": "$165.675",
         "precio_promo": "$1.590.480"
