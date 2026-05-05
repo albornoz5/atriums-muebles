@@ -249,6 +249,54 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .section-header p { color: var(--color-text-muted); font-size: 0.9rem; max-width: 440px; margin: 0 auto; }
 
 /* ===== FILTERS — ICON CARDS ===== */
+.catalog-search-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.catalog-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 480px;
+  background: #f5f2ee;
+  border: 1.5px solid #e0d8cf;
+  border-radius: 40px;
+  padding: 0 16px;
+  gap: 8px;
+  transition: border-color 0.2s;
+}
+.catalog-search:focus-within {
+  border-color: var(--color-accent);
+  background: #fff;
+}
+.catalog-search svg {
+  flex-shrink: 0;
+  color: #9e8a72;
+}
+.catalog-search input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  padding: 12px 0;
+  outline: none;
+  font-family: inherit;
+}
+.catalog-search input::placeholder { color: #b0a090; }
+.catalog-search__clear {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #b0a090;
+  font-size: 0.9rem;
+  padding: 4px;
+  line-height: 1;
+  display: none;
+}
+.catalog-search__clear.visible { display: block; }
 .filters {
   display: flex;
   gap: 8px;

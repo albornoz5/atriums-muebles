@@ -399,13 +399,43 @@
         "precio_promo": "$1.526.629"
     },
     {
+        "id": 72,
+        "slug": "c27-160-6-juliana-negro",
+        "nombre": "Mesa 1.60 + 6 sillas Juliana (laqueado negro)",
+        "precio": "$1.908.286",
+        "descripcion": "Las Sillas Juliana, con asiento y respaldo completamente tapizados, ofrecen confort excepcional. Madera de algarrobo seleccionada, terminacion en laca poliuretanica negro. Linea Premium.",
+        "categoria": "comedores",
+        "orden": 27,
+        "imagenes": [
+            "data/img/productos/c27-160-6-juliana-negro-1.png",
+            "data/img/productos/c27-160-6-juliana-negro-2.png"
+        ],
+        "precio_cuotas": "$159.023",
+        "precio_promo": "$1.526.628"
+    },
+    {
+        "id": 73,
+        "slug": "c28-160-6-sofia-negro",
+        "nombre": "Mesa 1.60 + 6 sillas Sofía (laqueado negro)",
+        "precio": "$1.795.052",
+        "descripcion": "La Silla Sofia combina respaldo de varillas horizontales con asiento tapizado de alta calidad. Madera de algarrobo seleccionada, terminacion en laca poliuretanica negro. Linea Premium.",
+        "categoria": "comedores",
+        "orden": 28,
+        "imagenes": [
+            "data/img/productos/c28-160-6-sofia-negro-1.png",
+            "data/img/productos/c28-160-6-sofia-negro-2.png"
+        ],
+        "precio_cuotas": "$149.587",
+        "precio_promo": "$1.436.041"
+    },
+    {
         "id": 27,
         "slug": "s01-juliana",
         "nombre": "Silla Juliana Algarrobo Premium",
         "precio": "$141.394",
         "descripcion": "Fabricada en madera de algarrobo seleccionada con proceso de secado que garantiza mayor durabilidad y menor peso. Terminacion en laca poliuretanica. Linea Premium.",
         "categoria": "sillas",
-        "orden": 27,
+        "orden": 29,
         "imagenes": [
             "data/img/productos/s01-juliana-1.png",
             "data/img/productos/s01-juliana-2.png",
@@ -422,7 +452,7 @@
         "precio": "$125.667",
         "descripcion": "Fabricada en madera de algarrobo seleccionada con proceso de secado que garantiza mayor durabilidad y menor peso. Terminacion en laca poliuretanica. Linea Premium.",
         "categoria": "sillas",
-        "orden": 28,
+        "orden": 30,
         "imagenes": [
             "data/img/productos/s02-martina-1.png",
             "data/img/productos/s02-martina-2.png",
@@ -438,7 +468,7 @@
         "precio": "$125.667",
         "descripcion": "Fabricada en madera de algarrobo seleccionada con proceso de secado que garantiza mayor durabilidad y menor peso. Terminacion en laca poliuretanica. Linea Premium.",
         "categoria": "sillas",
-        "orden": 29,
+        "orden": 31,
         "imagenes": [
             "data/img/productos/s03-sofia-1.png",
             "data/img/productos/s03-sofia-2.png",
@@ -454,7 +484,7 @@
         "precio": "$141.394",
         "descripcion": "La Silla Emma une la robustez del algarrobo con diseno contemporaneo. Su respaldo ergonomico con curvatura hacia atras ofrece apoyo lumbar excepcional. Madera de algarrobo, terminacion en laca poliuretanica.",
         "categoria": "sillas",
-        "orden": 30,
+        "orden": 32,
         "imagenes": [
             "data/img/productos/s04-emma-1.png",
             "data/img/productos/s04-emma-2.png",
@@ -470,7 +500,7 @@
         "precio": "$319.540",
         "descripcion": "Sillon Nordico disenado para ser el centro del comedor. Estructura de algarrobo macizo con respaldo que abraza la espalda y asiento tapizado de alta densidad. Laca poliuretanica premium.",
         "categoria": "sillas",
-        "orden": 31,
+        "orden": 33,
         "imagenes": [
             "data/img/productos/s05-nordico-1.png",
             "data/img/productos/s05-nordico-2.png",
@@ -487,7 +517,7 @@
         "precio": "$252.197",
         "descripcion": "Fabricada en madera de algarrobo seleccionada con proceso de secado que garantiza mayor durabilidad y menor peso. Terminacion en laca poliuretanica. Linea Premium.",
         "categoria": "sillas",
-        "orden": 32,
+        "orden": 34,
         "imagenes": [
             "data/img/productos/s06-julieta-1.png"
         ],
@@ -501,44 +531,12 @@
         "precio": "$115.667",
         "descripcion": "Fabricada en madera de algarrobo seleccionada con proceso de secado que garantiza mayor durabilidad y menor peso. Terminacion en laca poliuretanica. Linea Premium.",
         "categoria": "sillas",
-        "orden": 33,
+        "orden": 35,
         "imagenes": [
             "data/img/productos/s07-martina-sin-tapiz-1.png"
         ],
         "precio_cuotas": "",
         "precio_promo": "$92.533"
-    },
-    {
-        "id": 34,
-        "slug": "s08-chesterfield",
-        "nombre": "Sillón Chesterfield",
-        "precio": "$1.881.900",
-        "descripcion": "Sillon estilo Chesterfield. Tapizado de alta calidad con capitone caracteristico. Diseno clasico de gran presencia.",
-        "categoria": "living",
-        "orden": 59,
-        "imagenes": [
-            "data/img/productos/s08-chesterfield-1.png",
-            "data/img/productos/s08-chesterfield-2.png",
-            "data/img/productos/s08-chesterfield-3.png"
-        ],
-        "precio_cuotas": "$156.825",
-        "precio_promo": "$1.505.520"
-    },
-    {
-        "id": 35,
-        "slug": "s09-griego",
-        "nombre": "Sillón Griego",
-        "precio": "$1.690.210",
-        "descripcion": "Sillon estilo griego en madera de algarrobo seleccionada. Diseno elegante con tapizado premium. Combinacion de estetica clasica y comodidad.",
-        "categoria": "living",
-        "orden": 60,
-        "imagenes": [
-            "data/img/productos/s09-griego-1.png",
-            "data/img/productos/s09-griego-2.png",
-            "data/img/productos/s09-griego-3.png"
-        ],
-        "precio_cuotas": "$140.850",
-        "precio_promo": "$1.352.168"
     },
     {
         "id": 36,
@@ -547,7 +545,7 @@
         "precio": "$1.305.520",
         "descripcion": "Innovacion estructural con doble base central que libera las esquinas para maxima libertad de movimiento. Madera de algarrobo seleccionado con acabado premium en laca poliuretanica.",
         "categoria": "mesas",
-        "orden": 36,
+        "orden": 38,
         "imagenes": [
             "data/img/productos/m01-deluxe-200x100-1.png"
         ],
@@ -561,7 +559,7 @@
         "precio": "$1.217.525",
         "descripcion": "Modo compacto 1.60 m para el dia a dia. Extension suave hasta 2.00 m para recibir visitas. Madera de algarrobo, terminacion en laca poliuretanica.",
         "categoria": "mesas",
-        "orden": 37,
+        "orden": 39,
         "imagenes": [
             "data/img/productos/m02-extensible-1.png",
             "data/img/productos/m02-extensible-2.png"
@@ -576,7 +574,7 @@
         "precio": "$395.680",
         "descripcion": "Mesa ratona en madera de algarrobo nativa con diseno de lineas puras y acabado laqueado premium. Dimensiones: 0.40 alto x 0.80 largo x 0.60 profundidad.",
         "categoria": "mesas",
-        "orden": 38,
+        "orden": 40,
         "imagenes": [
             "data/img/productos/m03-ratona-1.png",
             "data/img/productos/m03-ratona-2.png"
@@ -591,7 +589,7 @@
         "precio": "$758.320",
         "descripcion": "Lineas puras de corte contemporaneo y minimalista. Madera de algarrobo seleccionado con acabado laqueado premium. Ideal para recibidores, laterales de sofa o pasillos.",
         "categoria": "mesas",
-        "orden": 39,
+        "orden": 41,
         "imagenes": [
             "data/img/productos/m04-arrime-1.png",
             "data/img/productos/m04-arrime-2.png"
@@ -606,7 +604,7 @@
         "precio": "$769.630",
         "descripcion": "Mesa de arrime clasica en madera de algarrobo seleccionada. Diseno tradicional con acabado laqueado de alta resistencia. Ideal para recibidores y pasillos.",
         "categoria": "mesas",
-        "orden": 40,
+        "orden": 42,
         "imagenes": [
             "data/img/productos/m05-arrime-clasica-1.png"
         ],
@@ -620,7 +618,7 @@
         "precio": "$1.329.996",
         "descripcion": "Medidas: 0.90 alto x 1.50 largo x 0.40 profundidad. Combina la robustez del algarrobo con diseno contemporaneo. 3 cajones superiores y 3 puertas inferiores con correderas telescopicas.",
         "categoria": "living",
-        "orden": 41,
+        "orden": 43,
         "imagenes": [
             "data/img/productos/l01-bahiut-continental-1.png"
         ],
@@ -634,7 +632,7 @@
         "precio": "$1.419.500",
         "descripcion": "Medidas: 0.90 alto x 1.50 largo x 0.40 profundidad. Apertura touch sin tiradores externos. 3 cajones con correderas telescopicas y 3 puertas de gran capacidad.",
         "categoria": "living",
-        "orden": 42,
+        "orden": 44,
         "imagenes": [
             "data/img/productos/l02-bahiut-ibiza-1.png"
         ],
@@ -648,7 +646,7 @@
         "precio": "$1.231.879",
         "descripcion": "Medidas: 0.90 alto x 1.50 largo x 0.40 profundidad. Diseno minimalista de 3 puertas. Acabado laqueado con brillo protector.",
         "categoria": "living",
-        "orden": 43,
+        "orden": 45,
         "imagenes": [
             "data/img/productos/l03-bahiut-paris-1.png"
         ],
@@ -662,7 +660,7 @@
         "precio": "$891.500",
         "descripcion": "Fabricado en madera de algarrobo seleccionada con acabado laqueado de alta calidad.",
         "categoria": "living",
-        "orden": 44,
+        "orden": 46,
         "imagenes": [
             "data/img/productos/l04-bahiut-clasico-1.png"
         ],
@@ -676,7 +674,7 @@
         "precio": "$1.530.980",
         "descripcion": "Medidas: 0.90 alto x 1.50 largo x 0.40 profundidad. Puertas laterales con vidrio para exhibir piezas selectas y torre central de cajones.",
         "categoria": "living",
-        "orden": 45,
+        "orden": 47,
         "imagenes": [
             "data/img/productos/l05-bahiut-europeo-1.png"
         ],
@@ -690,7 +688,7 @@
         "precio": "$1.359.600",
         "descripcion": "Bahiut estilo frances en madera de algarrobo seleccionada. Diseno clasico con detalles ornamentales y terminacion premium.",
         "categoria": "living",
-        "orden": 46,
+        "orden": 48,
         "imagenes": [
             "data/img/productos/l06-bahiut-frances-1.png"
         ],
@@ -704,7 +702,7 @@
         "precio": "$1.231.879",
         "descripcion": "Bahiut Paris en acabado Vinal de alta durabilidad. Diseno moderno con 3 puertas y amplio espacio de almacenamiento.",
         "categoria": "living",
-        "orden": 47,
+        "orden": 49,
         "imagenes": [
             "data/img/productos/l07-bahiut-paris-vinal-1.png"
         ],
@@ -718,7 +716,7 @@
         "precio": "$1.687.910",
         "descripcion": "Medidas: 1.90 alto x 1.00 largo x 0.40 profundidad. Puertas, laterales y estantes de vidrio de alta resistencia. Vision 360 grados. Superficie laqueada premium.",
         "categoria": "living",
-        "orden": 48,
+        "orden": 50,
         "imagenes": [
             "data/img/productos/l08-cristalero-imperial-1.png"
         ],
@@ -732,7 +730,7 @@
         "precio": "$1.599.270",
         "descripcion": "Medidas: 1.90 alto x 0.50 largo x 0.40 profundidad. Puertas y laterales de vidrio templado. Cajon central con correderas telescopicas.",
         "categoria": "living",
-        "orden": 49,
+        "orden": 51,
         "imagenes": [
             "data/img/productos/l09-cristalero-torre-1.png",
             "data/img/productos/l09-cristalero-torre-3.png"
@@ -747,7 +745,7 @@
         "precio": "$1.687.910",
         "descripcion": "Cristalero de diseno asiatico en madera de algarrobo seleccionada. Puertas y estantes de vidrio. Combinacion elegante de madera y vidrio.",
         "categoria": "living",
-        "orden": 50,
+        "orden": 52,
         "imagenes": [
             "data/img/productos/l10-cristalero-asia-1.png"
         ],
@@ -761,7 +759,7 @@
         "precio": "$4.528.536",
         "descripcion": "Combo exclusivo: cristaleros con puertas de vidrio mas bahiut a juego. Todo en madera de algarrobo con terminacion premium. El complemento perfecto para tu living.",
         "categoria": "living",
-        "orden": 51,
+        "orden": 53,
         "imagenes": [
             "data/img/productos/l11-combo-cristaleros-bahiut-1.png"
         ],
@@ -775,7 +773,7 @@
         "precio": "$997.256",
         "descripcion": "Rack de TV en madera de algarrobo seleccionada con acabado laqueado premium. Diseno moderno con amplio espacio de almacenamiento.",
         "categoria": "living",
-        "orden": 52,
+        "orden": 54,
         "imagenes": [
             "data/img/productos/l12-rack-tv-1.png"
         ],
@@ -789,7 +787,7 @@
         "precio": "$823.171",
         "descripcion": "Dresuar en madera de algarrobo seleccionada con espejo incluido. Acabado laqueado premium que realza la veta natural.",
         "categoria": "living",
-        "orden": 53,
+        "orden": 55,
         "imagenes": [
             "data/img/productos/l13-dresuar-1.png"
         ],
@@ -803,7 +801,7 @@
         "precio": "$1.216.400",
         "descripcion": "Medidas: 1.80 alto x 0.70 largo x 0.40 profundidad. Madera maciza de algarrobo seleccionada. Acabado laqueado de alta resistencia. Diseno minimalista de lineas rectas.",
         "categoria": "living",
-        "orden": 54,
+        "orden": 56,
         "imagenes": [
             "data/img/productos/l14-biblioteca-1.png"
         ],
@@ -817,7 +815,7 @@
         "precio": "$1.025.630",
         "descripcion": "Combina la calidez de la madera noble con diseno contemporaneo. Incluye colchon de Alta Densidad que no se deforma con el tiempo. Madera de algarrobo, terminacion en laca poliuretanica.",
         "categoria": "living",
-        "orden": 55,
+        "orden": 57,
         "imagenes": [
             "data/img/productos/l15-futon-1.png"
         ],
@@ -831,7 +829,7 @@
         "precio": "$1.690.520",
         "descripcion": "Juego completo en algarrobo: sofa de 3 cuerpos, 2 sillones y mesa ratona. Estructura solida de algarrobo con almohadones incluidos. Terminacion en laca poliuretanica.",
         "categoria": "living",
-        "orden": 56,
+        "orden": 58,
         "imagenes": [
             "data/img/productos/l16-living-tradicional-1.png",
             "data/img/productos/l16-living-tradicional-2.jpg",
@@ -847,7 +845,7 @@
         "precio": "$1.764.230",
         "descripcion": "Modular moderno en madera de algarrobo seleccionada. Diseno versatil y contemporaneo con amplio espacio de almacenamiento.",
         "categoria": "living",
-        "orden": 57,
+        "orden": 59,
         "imagenes": [
             "data/img/productos/l17-modular-1.png"
         ],
@@ -861,7 +859,7 @@
         "precio": "$3.099.849",
         "descripcion": "Conjunto exclusivo: mesa cubo Deluxe en algarrobo mas 6 sillones Nordicos Premium tapizados. Diseno de vanguardia para espacios modernos.",
         "categoria": "living",
-        "orden": 58,
+        "orden": 60,
         "imagenes": [
             "data/img/productos/l18-deluxe-cubo-nordicos-1.png",
             "data/img/productos/l18-deluxe-cubo-nordicos-2.png"
@@ -870,13 +868,45 @@
         "precio_promo": "$2.479.879"
     },
     {
+        "id": 34,
+        "slug": "s08-chesterfield",
+        "nombre": "Sillón Chesterfield",
+        "precio": "$1.881.900",
+        "descripcion": "Sillon estilo Chesterfield. Tapizado de alta calidad con capitone caracteristico. Diseno clasico de gran presencia.",
+        "categoria": "living",
+        "orden": 61,
+        "imagenes": [
+            "data/img/productos/s08-chesterfield-1.png",
+            "data/img/productos/s08-chesterfield-2.png",
+            "data/img/productos/s08-chesterfield-3.png"
+        ],
+        "precio_cuotas": "$156.825",
+        "precio_promo": "$1.505.520"
+    },
+    {
+        "id": 35,
+        "slug": "s09-griego",
+        "nombre": "Sillón Griego",
+        "precio": "$1.690.210",
+        "descripcion": "Sillon estilo griego en madera de algarrobo seleccionada. Diseno elegante con tapizado premium. Combinacion de estetica clasica y comodidad.",
+        "categoria": "living",
+        "orden": 62,
+        "imagenes": [
+            "data/img/productos/s09-griego-1.png",
+            "data/img/productos/s09-griego-2.png",
+            "data/img/productos/s09-griego-3.png"
+        ],
+        "precio_cuotas": "$140.850",
+        "precio_promo": "$1.352.168"
+    },
+    {
         "id": 59,
         "slug": "d01-cama-1-plaza",
         "nombre": "Cama de 1 Plaza Algarrobo Premium",
         "precio": "$693.240",
         "descripcion": "Fabricada en madera de algarrobo seleccionada con proceso de secado que garantiza mayor durabilidad y menor peso. Terminacion en laca poliuretanica. Linea Premium.",
         "categoria": "dormitorio",
-        "orden": 61,
+        "orden": 63,
         "imagenes": [
             "data/img/productos/d01-cama-1-plaza-1.png"
         ],
@@ -890,7 +920,7 @@
         "precio": "$1.195.360",
         "descripcion": "Fabricada en madera de algarrobo seleccionada con proceso de secado que garantiza mayor durabilidad y menor peso. Terminacion en laca poliuretanica. Linea Premium.",
         "categoria": "dormitorio",
-        "orden": 62,
+        "orden": 64,
         "imagenes": [
             "data/img/productos/d02-cama-2-plazas-1.png"
         ],
@@ -904,7 +934,7 @@
         "precio": "$1.056.900",
         "descripcion": "Fabricada en madera de algarrobo seleccionada con proceso de secado que garantiza mayor durabilidad y menor peso. Terminacion en laca poliuretanica. Linea Premium.",
         "categoria": "dormitorio",
-        "orden": 63,
+        "orden": 65,
         "imagenes": [
             "data/img/productos/d03-cama-cucheta-1.png"
         ],
@@ -918,7 +948,7 @@
         "precio": "$694.700",
         "descripcion": "Fabricada en madera de algarrobo seleccionada con proceso de secado que garantiza mayor durabilidad y menor peso. Terminacion en laca poliuretanica. Linea Premium.",
         "categoria": "dormitorio",
-        "orden": 64,
+        "orden": 66,
         "imagenes": [
             "data/img/productos/d04-cama-tradicional-1.png"
         ],
@@ -932,7 +962,7 @@
         "precio": "$395.620",
         "descripcion": "Fabricada en madera de algarrobo seleccionada. Terminacion en laca poliuretanica. Medidas: 0.65 alto x 0.45 largo x 0.40 profundidad.",
         "categoria": "dormitorio",
-        "orden": 65,
+        "orden": 67,
         "imagenes": [
             "data/img/productos/d05-mesa-luz-1.png"
         ],
@@ -946,7 +976,7 @@
         "precio": "$439.650",
         "descripcion": "Fabricada en madera de algarrobo seleccionada. Terminacion en laca poliuretanica. Medidas: 0.65 alto x 0.45 largo x 0.35 profundidad.",
         "categoria": "dormitorio",
-        "orden": 66,
+        "orden": 68,
         "imagenes": [
             "data/img/productos/d06-mesa-luz-moderna-1.png",
             "data/img/productos/d06-mesa-luz-moderna-2.png"
@@ -961,7 +991,7 @@
         "precio": "$743.280",
         "descripcion": "Fabricada en madera de algarrobo seleccionada con proceso de secado que garantiza mayor durabilidad y menor peso. Terminacion en laca poliuretanica. Linea Premium.",
         "categoria": "dormitorio",
-        "orden": 67,
+        "orden": 69,
         "imagenes": [
             "data/img/productos/d07-chifonier-clasico-1.png"
         ],
@@ -975,7 +1005,7 @@
         "precio": "$862.479",
         "descripcion": "Fabricada en madera de algarrobo seleccionada con proceso de secado que garantiza mayor durabilidad y menor peso. Terminacion en laca poliuretanica. Linea Premium.",
         "categoria": "dormitorio",
-        "orden": 68,
+        "orden": 70,
         "imagenes": [
             "data/img/productos/d08-chifonier-ropero-1.png"
         ],
@@ -989,7 +1019,7 @@
         "precio": "$1.246.242",
         "descripcion": "Fabricada en madera de algarrobo seleccionada con proceso de secado que garantiza mayor durabilidad y menor peso. Terminacion en laca poliuretanica. Linea Premium.",
         "categoria": "dormitorio",
-        "orden": 69,
+        "orden": 71,
         "imagenes": [
             "data/img/productos/d09-comoda-grande-1.png"
         ],
@@ -1003,7 +1033,7 @@
         "precio": "$1.078.200",
         "descripcion": "Comoda moderna en acabado Vinal de alta durabilidad. Cajones amplios con cierre suave y silencioso. Diseno contemporaneo para el dormitorio.",
         "categoria": "dormitorio",
-        "orden": 70,
+        "orden": 72,
         "imagenes": [
             "data/img/productos/d10-comoda-vinal-1.png"
         ],
@@ -1017,7 +1047,7 @@
         "precio": "$1.481.604",
         "descripcion": "Fabricada en madera de algarrobo seleccionada con proceso de secado que garantiza mayor durabilidad y menor peso. Terminacion en laca poliuretanica. Linea Premium.",
         "categoria": "dormitorio",
-        "orden": 71,
+        "orden": 73,
         "imagenes": [
             "data/img/productos/d11-respaldo-mesitas-1.png"
         ],
@@ -1031,7 +1061,7 @@
         "precio": "$494.100",
         "descripcion": "Fabricada en madera de algarrobo seleccionada con proceso de secado que garantiza mayor durabilidad y menor peso. Terminacion en laca poliuretanica. Linea Premium.",
         "categoria": "dormitorio",
-        "orden": 72,
+        "orden": 74,
         "imagenes": [
             "data/img/productos/d12-respaldo-1-plaza-1.png"
         ],
@@ -1045,7 +1075,7 @@
         "precio": "$681.706",
         "descripcion": "Fabricada en madera de algarrobo seleccionada con proceso de secado que garantiza mayor durabilidad y menor peso. Terminacion en laca poliuretanica. Linea Premium.",
         "categoria": "dormitorio",
-        "orden": 73,
+        "orden": 75,
         "imagenes": [
             "data/img/productos/d13-respaldo-2-plazas-1.png"
         ],

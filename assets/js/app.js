@@ -13,6 +13,7 @@ const CAT_LABELS = {
 /* ===== ESTADO ===== */
 let productos    = [];
 let activeFilter = 'todos';
+let searchQuery  = '';
 
 /* ===== HELPERS ===== */
 function waLink(nombre) {
@@ -97,15 +98,30 @@ function renderGrid(list) {
   }).join('');
 }
 
-/* ===== FILTROS ===== */
+/* ===== FILTROS + BÚSQUEDA ===== */
+function getFilteredList() {
+  let list = activeFilter === 'todos' ? productos : productos.filter(p => p.categoria === activeFilter);
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    list = list.filter(p => p.nombre.toLowerCase().includes(q));
+  }
+  return list;
+}
+
 function applyFilter(cat) {
   activeFilter = cat;
   document.querySelectorAll('.filter-cat-card').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.cat === cat);
   });
-  const list = cat === 'todos' ? productos : productos.filter(p => p.categoria === cat);
-  renderGrid(list);
+  renderGrid(getFilteredList());
   document.getElementById('catalog-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function applySearch(q) {
+  searchQuery = q.trim();
+  const clearBtn = document.getElementById('catalog-search-clear');
+  if (clearBtn) clearBtn.classList.toggle('visible', searchQuery.length > 0);
+  renderGrid(getFilteredList());
 }
 
 /* ===== CATEGORY ICONS ===== */
@@ -482,6 +498,16 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('lightbox')?.addEventListener('click', function(e) {
     if (e.target === this) closeLightbox();
   });
+
+  const searchInput = document.getElementById('catalog-search-input');
+  const searchClear = document.getElementById('catalog-search-clear');
+  if (searchInput) {
+    searchInput.addEventListener('input', () => applySearch(searchInput.value));
+    searchInput.addEventListener('keydown', e => { if (e.key === 'Escape') { searchInput.value = ''; applySearch(''); } });
+  }
+  if (searchClear) {
+    searchClear.addEventListener('click', () => { searchInput.value = ''; applySearch(''); searchInput.focus(); });
+  }
   document.getElementById('product-modal')?.addEventListener('click', function(e) {
     if (e.target === this) closeProductModal();
   });
