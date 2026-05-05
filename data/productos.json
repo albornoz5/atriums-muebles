@@ -8,9 +8,9 @@
         "categoria": "comedores",
         "orden": 1,
         "imagenes": [
-            "data/img/productos/c01-160x090-6-juliana-1.png",
-            "data/img/productos/c01-160x090-6-juliana-2.png",
-            "data/img/productos/c01-160x090-6-juliana-3.png"
+            "data/img/productos/c01-160x090-6-juliana-1.webp",
+            "data/img/productos/c01-160x090-6-juliana-2.webp",
+            "data/img/productos/c01-160x090-6-juliana-3.webp"
         ],
         "precio_cuotas": "$132.519",
         "precio_promo": "$1.272.191"
@@ -24,9 +24,9 @@
         "categoria": "comedores",
         "orden": 2,
         "imagenes": [
-            "data/img/productos/c02-160x090-6-martina-1.png",
-            "data/img/productos/c02-160x090-6-martina-2.png",
-            "data/img/productos/c02-160x090-6-martina-3.png"
+            "data/img/productos/c02-160x090-6-martina-1.webp",
+            "data/img/productos/c02-160x090-6-martina-2.webp",
+            "data/img/productos/c02-160x090-6-martina-3.webp"
         ],
         "precio_cuotas": "$124.656",
         "precio_promo": "$1.196.701"
@@ -40,9 +40,9 @@
         "categoria": "comedores",
         "orden": 3,
         "imagenes": [
-            "data/img/productos/c03-160x090-6-sofia-1.png",
-            "data/img/productos/c03-160x090-6-sofia-2.png",
-            "data/img/productos/c03-160x090-6-sofia-3.png"
+            "data/img/productos/c03-160x090-6-sofia-1.webp",
+            "data/img/productos/c03-160x090-6-sofia-2.webp",
+            "data/img/productos/c03-160x090-6-sofia-3.webp"
         ],
         "precio_cuotas": "$124.656",
         "precio_promo": "$1.196.701"
@@ -56,8 +56,8 @@
         "categoria": "comedores",
         "orden": 4,
         "imagenes": [
-            "data/img/productos/c04-160x090-6-sofia-ibirapita-1.png",
-            "data/img/productos/c04-160x090-6-sofia-ibirapita-2.png"
+            "data/img/productos/c04-160x090-6-sofia-ibirapita-1.webp",
+            "data/img/productos/c04-160x090-6-sofia-ibirapita-2.webp"
         ],
         "precio_cuotas": "$124.656",
         "precio_promo": "$1.196.701"
@@ -71,9 +71,9 @@
         "categoria": "comedores",
         "orden": 5,
         "imagenes": [
-            "data/img/productos/c05-160x090-6-juliana-ibirapita-1.png",
-            "data/img/productos/c05-160x090-6-juliana-ibirapita-2.png",
-            "data/img/productos/c05-160x090-6-juliana-ibirapita-3.png"
+            "data/img/productos/c05-160x090-6-juliana-ibirapita-1.webp",
+            "data/img/productos/c05-160x090-6-juliana-ibirapita-2.webp",
+            "data/img/productos/c05-160x090-6-juliana-ibirapita-3.webp"
         ],
         "precio_cuotas": "$132.519",
         "precio_promo": "$1.272.191"
@@ -87,9 +87,9 @@
         "categoria": "comedores",
         "orden": 6,
         "imagenes": [
-            "data/img/productos/c06-120x120-6-juliana-1.png",
-            "data/img/productos/c06-120x120-6-juliana-2.png",
-            "data/img/productos/c06-120x120-6-juliana-3.png"
+            "data/img/productos/c06-120x120-6-juliana-1.webp",
+            "data/img/productos/c06-120x120-6-juliana-2.webp",
+            "data/img/productos/c06-120x120-6-juliana-3.webp"
         ],
         "precio_cuotas": "$132.519",
         "precio_promo": "$1.272.191"
@@ -103,9 +103,9 @@
         "categoria": "comedores",
         "orden": 7,
         "imagenes": [
-            "data/img/productos/c07-120x120-6-martina-1.png",
-            "data/img/productos/c07-120x120-6-martina-2.png",
-            "data/img/productos/c07-120x120-6-martina-3.png"
+            "data/img/productos/c07-120x120-6-martina-1.webp",
+            "data/img/productos/c07-120x120-6-martina-2.webp",
+            "data/img/productos/c07-120x120-6-martina-3.webp"
         ],
         "precio_cuotas": "$124.656",
         "precio_promo": "$1.196.701"
@@ -119,9 +119,9 @@
         "categoria": "comedores",
         "orden": 8,
         "imagenes": [
-            "data/img/productos/c08-120x120-6-sofia-1.png",
-            "data/img/productos/c08-120x120-6-sofia-2.png",
-            "data/img/productos/c08-120x120-6-sofia-3.png"
+            "data/img/productos/c08-120x120-6-sofia-1.webp",
+            "data/img/productos/c08-120x120-6-sofia-2.webp",
+            "data/img/productos/c08-120x120-6-sofia-3.webp"
         ],
         "precio_cuotas": "$124.656",
         "precio_promo": "$1.196.701"
@@ -135,8 +135,8 @@
         "categoria": "comedores",
         "orden": 9,
         "imagenes": [
-            "data/img/productos/c09-120x120-6-emma-1.png",
-            "data/img/productos/c09-120x120-6-emma-2.png"
+            "data/img/productos/c09-120x120-6-emma-1.webp",
+            "data/img/productos/c09-120x120-6-emma-2.webp"
         ],
         "precio_cuotas": "$132.519",
         "precio_promo": "$1.272.191"
@@ -150,9 +150,9 @@
         "categoria": "comedores",
         "orden": 10,
         "imagenes": [
-            "data/img/productos/c10-200x090-8-juliana-1.png",
-            "data/img/productos/c10-200x090-8-juliana-2.png",
-            "data/img/productos/c10-200x090-8-juliana-3.png"
+            "data/img/productos/c10-200x090-8-juliana-1.webp",
+            "data/img/productos/c10-200x090-8-juliana-2.webp",
+            "data/img/productos/c10-200x090-8-juliana-3.webp"
         ],
         "precio_cuotas": "$164.201",
         "precio_promo": "$1.576.332"
@@ -166,9 +166,9 @@
         "categoria": "comedores",
         "orden": 11,
         "imagenes": [
-            "data/img/productos/c11-200x090-8-martina-1.png",
-            "data/img/productos/c11-200x090-8-martina-2.png",
-            "data/img/productos/c11-200x090-8-martina-3.png"
+            "data/img/productos/c11-200x090-8-martina-1.webp",
+            "data/img/productos/c11-200x090-8-martina-2.webp",
+            "data/img/productos/c11-200x090-8-martina-3.webp"
         ],
         "precio_cuotas": "$153.716",
         "precio_promo": "$1.475.680"
@@ -182,9 +182,9 @@
         "categoria": "comedores",
         "orden": 12,
         "imagenes": [
-            "data/img/productos/c12-200x090-8-sofia-1.png",
-            "data/img/productos/c12-200x090-8-sofia-2.png",
-            "data/img/productos/c12-200x090-8-sofia-3.png"
+            "data/img/productos/c12-200x090-8-sofia-1.webp",
+            "data/img/productos/c12-200x090-8-sofia-2.webp",
+            "data/img/productos/c12-200x090-8-sofia-3.webp"
         ],
         "precio_cuotas": "$153.716",
         "precio_promo": "$1.475.680"
@@ -198,9 +198,9 @@
         "categoria": "comedores",
         "orden": 13,
         "imagenes": [
-            "data/img/productos/c13-140x140-8-juliana-1.png",
-            "data/img/productos/c13-140x140-8-juliana-2.png",
-            "data/img/productos/c13-140x140-8-juliana-3.png"
+            "data/img/productos/c13-140x140-8-juliana-1.webp",
+            "data/img/productos/c13-140x140-8-juliana-2.webp",
+            "data/img/productos/c13-140x140-8-juliana-3.webp"
         ],
         "precio_cuotas": "$176.159",
         "precio_promo": "$1.691.132"
@@ -214,9 +214,9 @@
         "categoria": "comedores",
         "orden": 14,
         "imagenes": [
-            "data/img/productos/c14-140x140-8-martina-1.png",
-            "data/img/productos/c14-140x140-8-martina-2.png",
-            "data/img/productos/c14-140x140-8-martina-3.png"
+            "data/img/productos/c14-140x140-8-martina-1.webp",
+            "data/img/productos/c14-140x140-8-martina-2.webp",
+            "data/img/productos/c14-140x140-8-martina-3.webp"
         ],
         "precio_cuotas": "$176.159",
         "precio_promo": "$1.691.132"
@@ -230,8 +230,8 @@
         "categoria": "comedores",
         "orden": 15,
         "imagenes": [
-            "data/img/productos/c15-140x140-8-sofia-ibirapita-1.png",
-            "data/img/productos/c15-140x140-8-sofia-ibirapita-2.png"
+            "data/img/productos/c15-140x140-8-sofia-ibirapita-1.webp",
+            "data/img/productos/c15-140x140-8-sofia-ibirapita-2.webp"
         ],
         "precio_cuotas": "$165.675",
         "precio_promo": "$1.590.480"
@@ -245,8 +245,8 @@
         "categoria": "comedores",
         "orden": 16,
         "imagenes": [
-            "data/img/productos/c16-140x140-8-juliana-habano-1.png",
-            "data/img/productos/c16-140x140-8-juliana-habano-2.png"
+            "data/img/productos/c16-140x140-8-juliana-habano-1.webp",
+            "data/img/productos/c16-140x140-8-juliana-habano-2.webp"
         ],
         "precio_cuotas": "$211.391",
         "precio_promo": "$2.029.359"
@@ -260,8 +260,8 @@
         "categoria": "comedores",
         "orden": 17,
         "imagenes": [
-            "data/img/productos/c17-deluxe-140x140-8-juliana-1.png",
-            "data/img/productos/c17-deluxe-140x140-8-juliana-2.png"
+            "data/img/productos/c17-deluxe-140x140-8-juliana-1.webp",
+            "data/img/productos/c17-deluxe-140x140-8-juliana-2.webp"
         ],
         "precio_cuotas": "$208.918",
         "precio_promo": "$2.005.617"
@@ -275,8 +275,8 @@
         "categoria": "comedores",
         "orden": 18,
         "imagenes": [
-            "data/img/productos/c18-deluxe-140x140-8-martina-1.png",
-            "data/img/productos/c18-deluxe-140x140-8-martina-2.png"
+            "data/img/productos/c18-deluxe-140x140-8-martina-1.webp",
+            "data/img/productos/c18-deluxe-140x140-8-martina-2.webp"
         ],
         "precio_cuotas": "$198.433",
         "precio_promo": "$1.904.964"
@@ -290,8 +290,8 @@
         "categoria": "comedores",
         "orden": 19,
         "imagenes": [
-            "data/img/productos/c19-deluxe-240-10-tapizadas-1.png",
-            "data/img/productos/c19-deluxe-240-10-tapizadas-2.png"
+            "data/img/productos/c19-deluxe-240-10-tapizadas-1.webp",
+            "data/img/productos/c19-deluxe-240-10-tapizadas-2.webp"
         ],
         "precio_cuotas": "$256.305",
         "precio_promo": "$2.460.528"
@@ -305,9 +305,9 @@
         "categoria": "comedores",
         "orden": 20,
         "imagenes": [
-            "data/img/productos/c20-deluxe-240-8-nordicos-1.png",
-            "data/img/productos/c20-deluxe-240-8-nordicos-2.png",
-            "data/img/productos/c20-deluxe-240-8-nordicos-3.png"
+            "data/img/productos/c20-deluxe-240-8-nordicos-1.webp",
+            "data/img/productos/c20-deluxe-240-8-nordicos-2.webp",
+            "data/img/productos/c20-deluxe-240-8-nordicos-3.webp"
         ],
         "precio_cuotas": "$330.030",
         "precio_promo": "$3.168.288"
@@ -321,8 +321,8 @@
         "categoria": "comedores",
         "orden": 21,
         "imagenes": [
-            "data/img/productos/c21-300x110-12-tapizadas-1.png",
-            "data/img/productos/c21-300x110-12-tapizadas-2.png"
+            "data/img/productos/c21-300x110-12-tapizadas-1.webp",
+            "data/img/productos/c21-300x110-12-tapizadas-2.webp"
         ],
         "precio_cuotas": "$268.750",
         "precio_promo": "$2.580.000"
@@ -336,7 +336,7 @@
         "categoria": "comedores",
         "orden": 22,
         "imagenes": [
-            "data/img/productos/c22-120x080-4-martina-1.png"
+            "data/img/productos/c22-120x080-4-martina-1.webp"
         ],
         "precio_cuotas": "$89.861",
         "precio_promo": "$862.668"
@@ -350,7 +350,7 @@
         "categoria": "comedores",
         "orden": 23,
         "imagenes": [
-            "data/img/productos/c23-120x080-4-juliana-1.png"
+            "data/img/productos/c23-120x080-4-juliana-1.webp"
         ],
         "precio_cuotas": "$95.103",
         "precio_promo": "$912.994"
@@ -364,7 +364,7 @@
         "categoria": "comedores",
         "orden": 24,
         "imagenes": [
-            "data/img/productos/c24-120x080-4-sofia-ibirapita-1.png"
+            "data/img/productos/c24-120x080-4-sofia-ibirapita-1.webp"
         ],
         "precio_cuotas": "$89.861",
         "precio_promo": "$862.668"
@@ -378,7 +378,7 @@
         "categoria": "comedores",
         "orden": 25,
         "imagenes": [
-            "data/img/productos/c25-120x080-4-juliana-negro-1.png"
+            "data/img/productos/c25-120x080-4-juliana-negro-1.webp"
         ],
         "precio_cuotas": "$114.124",
         "precio_promo": "$1.095.593"
@@ -392,8 +392,8 @@
         "categoria": "comedores",
         "orden": 26,
         "imagenes": [
-            "data/img/productos/c26-120x120-6-juliana-habano-1.png",
-            "data/img/productos/c26-120x120-6-juliana-habano-2.png"
+            "data/img/productos/c26-120x120-6-juliana-habano-1.webp",
+            "data/img/productos/c26-120x120-6-juliana-habano-2.webp"
         ],
         "precio_cuotas": "$159.023",
         "precio_promo": "$1.526.629"
@@ -407,8 +407,8 @@
         "categoria": "comedores",
         "orden": 27,
         "imagenes": [
-            "data/img/productos/c27-160-6-juliana-negro-1.png",
-            "data/img/productos/c27-160-6-juliana-negro-2.png"
+            "data/img/productos/c27-160-6-juliana-negro-1.webp",
+            "data/img/productos/c27-160-6-juliana-negro-2.webp"
         ],
         "precio_cuotas": "$159.023",
         "precio_promo": "$1.526.628"
@@ -422,8 +422,8 @@
         "categoria": "comedores",
         "orden": 28,
         "imagenes": [
-            "data/img/productos/c28-160-6-sofia-negro-1.png",
-            "data/img/productos/c28-160-6-sofia-negro-2.png"
+            "data/img/productos/c28-160-6-sofia-negro-1.webp",
+            "data/img/productos/c28-160-6-sofia-negro-2.webp"
         ],
         "precio_cuotas": "$149.587",
         "precio_promo": "$1.436.041"
@@ -437,8 +437,8 @@
         "categoria": "comedores",
         "orden": 29,
         "imagenes": [
-            "data/img/productos/c29-deluxe-140x140-8-juliana-negro-1.png",
-            "data/img/productos/c29-deluxe-140x140-8-juliana-negro-2.png"
+            "data/img/productos/c29-deluxe-140x140-8-juliana-negro-1.webp",
+            "data/img/productos/c29-deluxe-140x140-8-juliana-negro-2.webp"
         ],
         "precio_cuotas": "$250.702",
         "precio_promo": "$2.406.740"
@@ -452,10 +452,10 @@
         "categoria": "sillas",
         "orden": 30,
         "imagenes": [
-            "data/img/productos/s01-juliana-1.png",
-            "data/img/productos/s01-juliana-2.png",
-            "data/img/productos/s01-juliana-3.png",
-            "data/img/productos/s01-juliana-4.png"
+            "data/img/productos/s01-juliana-1.webp",
+            "data/img/productos/s01-juliana-2.webp",
+            "data/img/productos/s01-juliana-3.webp",
+            "data/img/productos/s01-juliana-4.webp"
         ],
         "precio_cuotas": "",
         "precio_promo": "$113.115"
@@ -469,9 +469,9 @@
         "categoria": "sillas",
         "orden": 31,
         "imagenes": [
-            "data/img/productos/s02-martina-1.png",
-            "data/img/productos/s02-martina-2.png",
-            "data/img/productos/s02-martina-3.png"
+            "data/img/productos/s02-martina-1.webp",
+            "data/img/productos/s02-martina-2.webp",
+            "data/img/productos/s02-martina-3.webp"
         ],
         "precio_cuotas": "",
         "precio_promo": "$100.533"
@@ -485,9 +485,9 @@
         "categoria": "sillas",
         "orden": 32,
         "imagenes": [
-            "data/img/productos/s03-sofia-1.png",
-            "data/img/productos/s03-sofia-2.png",
-            "data/img/productos/s03-sofia-3.png"
+            "data/img/productos/s03-sofia-1.webp",
+            "data/img/productos/s03-sofia-2.webp",
+            "data/img/productos/s03-sofia-3.webp"
         ],
         "precio_cuotas": "",
         "precio_promo": "$100.533"
@@ -501,9 +501,9 @@
         "categoria": "sillas",
         "orden": 33,
         "imagenes": [
-            "data/img/productos/s04-emma-1.png",
-            "data/img/productos/s04-emma-2.png",
-            "data/img/productos/s04-emma-3.png"
+            "data/img/productos/s04-emma-1.webp",
+            "data/img/productos/s04-emma-2.webp",
+            "data/img/productos/s04-emma-3.webp"
         ],
         "precio_cuotas": "",
         "precio_promo": "$113.115"
@@ -517,10 +517,10 @@
         "categoria": "sillas",
         "orden": 34,
         "imagenes": [
-            "data/img/productos/s05-nordico-1.png",
-            "data/img/productos/s05-nordico-2.png",
-            "data/img/productos/s05-nordico-3.png",
-            "data/img/productos/s05-nordico-4.png"
+            "data/img/productos/s05-nordico-1.webp",
+            "data/img/productos/s05-nordico-2.webp",
+            "data/img/productos/s05-nordico-3.webp",
+            "data/img/productos/s05-nordico-4.webp"
         ],
         "precio_cuotas": "",
         "precio_promo": "$255.632"
@@ -534,7 +534,7 @@
         "categoria": "sillas",
         "orden": 35,
         "imagenes": [
-            "data/img/productos/s06-julieta-1.png"
+            "data/img/productos/s06-julieta-1.webp"
         ],
         "precio_cuotas": "",
         "precio_promo": "$201.757"
@@ -548,7 +548,7 @@
         "categoria": "sillas",
         "orden": 36,
         "imagenes": [
-            "data/img/productos/s07-martina-sin-tapiz-1.png"
+            "data/img/productos/s07-martina-sin-tapiz-1.webp"
         ],
         "precio_cuotas": "",
         "precio_promo": "$92.533"
@@ -562,7 +562,7 @@
         "categoria": "mesas",
         "orden": 39,
         "imagenes": [
-            "data/img/productos/m01-deluxe-200x100-1.png"
+            "data/img/productos/m01-deluxe-200x100-1.webp"
         ],
         "precio_cuotas": "$108.793",
         "precio_promo": "$1.044.416"
@@ -576,8 +576,8 @@
         "categoria": "mesas",
         "orden": 40,
         "imagenes": [
-            "data/img/productos/m02-extensible-1.png",
-            "data/img/productos/m02-extensible-2.png"
+            "data/img/productos/m02-extensible-1.webp",
+            "data/img/productos/m02-extensible-2.webp"
         ],
         "precio_cuotas": "$101.460",
         "precio_promo": "$974.020"
@@ -591,8 +591,8 @@
         "categoria": "mesas",
         "orden": 41,
         "imagenes": [
-            "data/img/productos/m03-ratona-1.png",
-            "data/img/productos/m03-ratona-2.png"
+            "data/img/productos/m03-ratona-1.webp",
+            "data/img/productos/m03-ratona-2.webp"
         ],
         "precio_cuotas": "$32.973",
         "precio_promo": "$316.544"
@@ -606,8 +606,8 @@
         "categoria": "mesas",
         "orden": 42,
         "imagenes": [
-            "data/img/productos/m04-arrime-1.png",
-            "data/img/productos/m04-arrime-2.png"
+            "data/img/productos/m04-arrime-1.webp",
+            "data/img/productos/m04-arrime-2.webp"
         ],
         "precio_cuotas": "$63.193",
         "precio_promo": "$606.656"
@@ -621,7 +621,7 @@
         "categoria": "mesas",
         "orden": 43,
         "imagenes": [
-            "data/img/productos/m05-arrime-clasica-1.png"
+            "data/img/productos/m05-arrime-clasica-1.webp"
         ],
         "precio_cuotas": "$64.135",
         "precio_promo": "$615.704"
@@ -635,7 +635,7 @@
         "categoria": "living",
         "orden": 44,
         "imagenes": [
-            "data/img/productos/l01-bahiut-continental-1.png"
+            "data/img/productos/l01-bahiut-continental-1.webp"
         ],
         "precio_cuotas": "$110.833",
         "precio_promo": "$1.063.996"
@@ -649,7 +649,7 @@
         "categoria": "living",
         "orden": 45,
         "imagenes": [
-            "data/img/productos/l02-bahiut-ibiza-1.png"
+            "data/img/productos/l02-bahiut-ibiza-1.webp"
         ],
         "precio_cuotas": "$118.291",
         "precio_promo": "$1.135.600"
@@ -663,7 +663,7 @@
         "categoria": "living",
         "orden": 46,
         "imagenes": [
-            "data/img/productos/l03-bahiut-paris-1.png"
+            "data/img/productos/l03-bahiut-paris-1.webp"
         ],
         "precio_cuotas": "$102.656",
         "precio_promo": "$985.503"
@@ -677,7 +677,7 @@
         "categoria": "living",
         "orden": 47,
         "imagenes": [
-            "data/img/productos/l04-bahiut-clasico-1.png"
+            "data/img/productos/l04-bahiut-clasico-1.webp"
         ],
         "precio_cuotas": "$74.291",
         "precio_promo": "$713.200"
@@ -691,7 +691,7 @@
         "categoria": "living",
         "orden": 48,
         "imagenes": [
-            "data/img/productos/l05-bahiut-europeo-1.png"
+            "data/img/productos/l05-bahiut-europeo-1.webp"
         ],
         "precio_cuotas": "$127.581",
         "precio_promo": "$1.224.784"
@@ -705,7 +705,7 @@
         "categoria": "living",
         "orden": 49,
         "imagenes": [
-            "data/img/productos/l06-bahiut-frances-1.png"
+            "data/img/productos/l06-bahiut-frances-1.webp"
         ],
         "precio_cuotas": "$113.300",
         "precio_promo": "$1.087.680"
@@ -719,7 +719,7 @@
         "categoria": "living",
         "orden": 50,
         "imagenes": [
-            "data/img/productos/l07-bahiut-paris-vinal-1.png"
+            "data/img/productos/l07-bahiut-paris-vinal-1.webp"
         ],
         "precio_cuotas": "$102.656",
         "precio_promo": "$985.503"
@@ -733,7 +733,7 @@
         "categoria": "living",
         "orden": 51,
         "imagenes": [
-            "data/img/productos/l08-cristalero-imperial-1.png"
+            "data/img/productos/l08-cristalero-imperial-1.webp"
         ],
         "precio_cuotas": "$140.659",
         "precio_promo": "$1.350.328"
@@ -747,8 +747,8 @@
         "categoria": "living",
         "orden": 52,
         "imagenes": [
-            "data/img/productos/l09-cristalero-torre-1.png",
-            "data/img/productos/l09-cristalero-torre-3.png"
+            "data/img/productos/l09-cristalero-torre-1.webp",
+            "data/img/productos/l09-cristalero-torre-3.webp"
         ],
         "precio_cuotas": "$133.272",
         "precio_promo": "$1.279.416"
@@ -762,7 +762,7 @@
         "categoria": "living",
         "orden": 53,
         "imagenes": [
-            "data/img/productos/l10-cristalero-asia-1.png"
+            "data/img/productos/l10-cristalero-asia-1.webp"
         ],
         "precio_cuotas": "$140.659",
         "precio_promo": "$1.350.328"
@@ -776,7 +776,7 @@
         "categoria": "living",
         "orden": 54,
         "imagenes": [
-            "data/img/productos/l11-combo-cristaleros-bahiut-1.png"
+            "data/img/productos/l11-combo-cristaleros-bahiut-1.webp"
         ],
         "precio_cuotas": "$377.378",
         "precio_promo": "$3.622.828"
@@ -790,7 +790,7 @@
         "categoria": "living",
         "orden": 55,
         "imagenes": [
-            "data/img/productos/l12-rack-tv-1.png"
+            "data/img/productos/l12-rack-tv-1.webp"
         ],
         "precio_cuotas": "$83.104",
         "precio_promo": "$797.804"
@@ -804,7 +804,7 @@
         "categoria": "living",
         "orden": 56,
         "imagenes": [
-            "data/img/productos/l13-dresuar-1.png"
+            "data/img/productos/l13-dresuar-1.webp"
         ],
         "precio_cuotas": "$68.597",
         "precio_promo": "$658.536"
@@ -818,7 +818,7 @@
         "categoria": "living",
         "orden": 57,
         "imagenes": [
-            "data/img/productos/l14-biblioteca-1.png"
+            "data/img/productos/l14-biblioteca-1.webp"
         ],
         "precio_cuotas": "$101.366",
         "precio_promo": "$973.120"
@@ -832,7 +832,7 @@
         "categoria": "living",
         "orden": 58,
         "imagenes": [
-            "data/img/productos/l15-futon-1.png"
+            "data/img/productos/l15-futon-1.webp"
         ],
         "precio_cuotas": "$85.469",
         "precio_promo": "$820.504"
@@ -846,9 +846,9 @@
         "categoria": "living",
         "orden": 59,
         "imagenes": [
-            "data/img/productos/l16-living-tradicional-1.png",
-            "data/img/productos/l16-living-tradicional-2.jpg",
-            "data/img/productos/l16-living-tradicional-3.png"
+            "data/img/productos/l16-living-tradicional-1.webp",
+            "data/img/productos/l16-living-tradicional-2.webp",
+            "data/img/productos/l16-living-tradicional-3.webp"
         ],
         "precio_cuotas": "$140.876",
         "precio_promo": "$1.352.416"
@@ -862,7 +862,7 @@
         "categoria": "living",
         "orden": 60,
         "imagenes": [
-            "data/img/productos/l17-modular-1.png"
+            "data/img/productos/l17-modular-1.webp"
         ],
         "precio_cuotas": "$147.019",
         "precio_promo": "$1.411.384"
@@ -876,8 +876,8 @@
         "categoria": "living",
         "orden": 61,
         "imagenes": [
-            "data/img/productos/l18-deluxe-cubo-nordicos-1.png",
-            "data/img/productos/l18-deluxe-cubo-nordicos-2.png"
+            "data/img/productos/l18-deluxe-cubo-nordicos-1.webp",
+            "data/img/productos/l18-deluxe-cubo-nordicos-2.webp"
         ],
         "precio_cuotas": "$258.320",
         "precio_promo": "$2.479.879"
@@ -891,9 +891,9 @@
         "categoria": "living",
         "orden": 62,
         "imagenes": [
-            "data/img/productos/s08-chesterfield-1.png",
-            "data/img/productos/s08-chesterfield-2.png",
-            "data/img/productos/s08-chesterfield-3.png"
+            "data/img/productos/s08-chesterfield-1.webp",
+            "data/img/productos/s08-chesterfield-2.webp",
+            "data/img/productos/s08-chesterfield-3.webp"
         ],
         "precio_cuotas": "$156.825",
         "precio_promo": "$1.505.520"
@@ -907,9 +907,9 @@
         "categoria": "living",
         "orden": 63,
         "imagenes": [
-            "data/img/productos/s09-griego-1.png",
-            "data/img/productos/s09-griego-2.png",
-            "data/img/productos/s09-griego-3.png"
+            "data/img/productos/s09-griego-1.webp",
+            "data/img/productos/s09-griego-2.webp",
+            "data/img/productos/s09-griego-3.webp"
         ],
         "precio_cuotas": "$140.850",
         "precio_promo": "$1.352.168"
@@ -923,7 +923,7 @@
         "categoria": "dormitorio",
         "orden": 64,
         "imagenes": [
-            "data/img/productos/d01-cama-1-plaza-1.png"
+            "data/img/productos/d01-cama-1-plaza-1.webp"
         ],
         "precio_cuotas": "$57.770",
         "precio_promo": "$554.592"
@@ -937,7 +937,7 @@
         "categoria": "dormitorio",
         "orden": 65,
         "imagenes": [
-            "data/img/productos/d02-cama-2-plazas-1.png"
+            "data/img/productos/d02-cama-2-plazas-1.webp"
         ],
         "precio_cuotas": "$99.613",
         "precio_promo": "$956.288"
@@ -951,7 +951,7 @@
         "categoria": "dormitorio",
         "orden": 66,
         "imagenes": [
-            "data/img/productos/d03-cama-cucheta-1.png"
+            "data/img/productos/d03-cama-cucheta-1.webp"
         ],
         "precio_cuotas": "$88.075",
         "precio_promo": "$845.520"
@@ -965,7 +965,7 @@
         "categoria": "dormitorio",
         "orden": 67,
         "imagenes": [
-            "data/img/productos/d04-cama-tradicional-1.png"
+            "data/img/productos/d04-cama-tradicional-1.webp"
         ],
         "precio_cuotas": "$57.891",
         "precio_promo": "$555.760"
@@ -979,7 +979,7 @@
         "categoria": "dormitorio",
         "orden": 68,
         "imagenes": [
-            "data/img/productos/d05-mesa-luz-1.png"
+            "data/img/productos/d05-mesa-luz-1.webp"
         ],
         "precio_cuotas": "$32.968",
         "precio_promo": "$316.496"
@@ -993,8 +993,8 @@
         "categoria": "dormitorio",
         "orden": 69,
         "imagenes": [
-            "data/img/productos/d06-mesa-luz-moderna-1.png",
-            "data/img/productos/d06-mesa-luz-moderna-2.png"
+            "data/img/productos/d06-mesa-luz-moderna-1.webp",
+            "data/img/productos/d06-mesa-luz-moderna-2.webp"
         ],
         "precio_cuotas": "$36.637",
         "precio_promo": "$351.720"
@@ -1008,7 +1008,7 @@
         "categoria": "dormitorio",
         "orden": 70,
         "imagenes": [
-            "data/img/productos/d07-chifonier-clasico-1.png"
+            "data/img/productos/d07-chifonier-clasico-1.webp"
         ],
         "precio_cuotas": "$61.940",
         "precio_promo": "$594.624"
@@ -1022,7 +1022,7 @@
         "categoria": "dormitorio",
         "orden": 71,
         "imagenes": [
-            "data/img/productos/d08-chifonier-ropero-1.png"
+            "data/img/productos/d08-chifonier-ropero-1.webp"
         ],
         "precio_cuotas": "$71.873",
         "precio_promo": "$689.983"
@@ -1036,7 +1036,7 @@
         "categoria": "dormitorio",
         "orden": 72,
         "imagenes": [
-            "data/img/productos/d09-comoda-grande-1.png"
+            "data/img/productos/d09-comoda-grande-1.webp"
         ],
         "precio_cuotas": "$103.853",
         "precio_promo": "$996.993"
@@ -1050,7 +1050,7 @@
         "categoria": "dormitorio",
         "orden": 73,
         "imagenes": [
-            "data/img/productos/d10-comoda-vinal-1.png"
+            "data/img/productos/d10-comoda-vinal-1.webp"
         ],
         "precio_cuotas": "$89.850",
         "precio_promo": "$862.560"
@@ -1064,7 +1064,7 @@
         "categoria": "dormitorio",
         "orden": 74,
         "imagenes": [
-            "data/img/productos/d11-respaldo-mesitas-1.png"
+            "data/img/productos/d11-respaldo-mesitas-1.webp"
         ],
         "precio_cuotas": "$123.467",
         "precio_promo": "$1.185.283"
@@ -1078,7 +1078,7 @@
         "categoria": "dormitorio",
         "orden": 75,
         "imagenes": [
-            "data/img/productos/d12-respaldo-1-plaza-1.png"
+            "data/img/productos/d12-respaldo-1-plaza-1.webp"
         ],
         "precio_cuotas": "$41.175",
         "precio_promo": "$395.280"
@@ -1092,7 +1092,7 @@
         "categoria": "dormitorio",
         "orden": 76,
         "imagenes": [
-            "data/img/productos/d13-respaldo-2-plazas-1.png"
+            "data/img/productos/d13-respaldo-2-plazas-1.webp"
         ],
         "precio_cuotas": "$56.808",
         "precio_promo": "$545.364"
